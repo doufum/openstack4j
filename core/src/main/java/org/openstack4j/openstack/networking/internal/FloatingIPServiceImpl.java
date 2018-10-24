@@ -1,10 +1,5 @@
 package org.openstack4j.openstack.networking.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.api.networking.NetFloatingIPService;
 import org.openstack4j.core.transport.ExecutionOptions;
 import org.openstack4j.core.transport.propagation.PropagateOnStatus;
@@ -12,6 +7,11 @@ import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.network.NetFloatingIP;
 import org.openstack4j.openstack.networking.domain.NeutronFloatingIP;
 import org.openstack4j.openstack.networking.domain.NeutronFloatingIP.FloatingIPs;
+
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * FloatingIPService implementation that provides Neutron Floating-IP based Service Operations.
@@ -58,6 +58,20 @@ public class FloatingIPServiceImpl extends BaseNetworkingServices implements Net
     public ActionResponse delete(String id) {
         checkNotNull(id);
         return deleteWithResponse(uri("/floatingips/%s", id)).execute();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NetFloatingIP update(String id, Integer bandwidth) {
+        checkNotNull(id);
+        checkNotNull(bandwidth);
+        NeutronFloatingIP floatingIP = new NeutronFloatingIP();
+        floatingIP.setBandwidth(bandwidth);
+        return put(NeutronFloatingIP.class, uri("/floatingips/%s", id)).entity(floatingIP)
+                .execute(ExecutionOptions.<NeutronFloatingIP>create(PropagateOnStatus.on(404)));
+
     }
 
     /**

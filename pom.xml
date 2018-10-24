@@ -34,6 +34,16 @@
             <url>http://www.pacesys.org</url>
         </developer>
     </developers>
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://10.68.6.20:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <url>http://10.68.6.20:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <scm>
         <connection>scm:git:git@github.com:ContainX/openstack4j.git</connection>
         <developerConnection>scm:git:git@github.com:ContainX/openstack4j.git</developerConnection>
@@ -53,7 +63,7 @@
         <module>core</module>
         <module>core-test</module>
         <module>connectors</module>
-        <module>core-integration-test</module>
+        <!--<module>core-integration-test</module>-->
         <module>distribution</module>
     </modules>
     <dependencies>
@@ -97,8 +107,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

@@ -1,11 +1,11 @@
 package org.openstack4j.api.networking;
 
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.common.RestService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.network.NetFloatingIP;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,8 +46,16 @@ public interface NetFloatingIPService extends RestService {
    * @return the action response
    */
   ActionResponse delete(String id);
-  
-  
+
+  /**
+   * update NetFloatingIP by id.
+   *
+   * @param id the id
+   * @return the action response
+   */
+  NetFloatingIP update(String id, Integer bandwidth);
+
+
   /**
    * Creates a new Floating IP
    *
