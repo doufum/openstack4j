@@ -35,11 +35,21 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git@github.com:ContainX/openstack4j.git</connection>
-        <developerConnection>scm:git:git@github.com:ContainX/openstack4j.git</developerConnection>
-        <url>http://github.com/ContainX/openstack4j/</url>
+        <connection>scm:git:http://10.68.6.20:8082/cloudstar/rightcloud-server.git</connection>
+        <url>http://10.68.6.20:8082/cloudstar/rightcloud-server</url>
+        <developerConnection>scm:git:http://10.68.6.20:8082/cloudstar/rightcloud-server.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://10.68.6.20:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <url>http://10.68.6.20:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <mailingLists>
         <mailingList>
             <name>OpenStack4j List</name>
@@ -51,9 +61,9 @@
     </mailingLists>
     <modules>
         <module>core</module>
-        <module>core-test</module>
+<!--        <module>core-test</module>-->
         <module>connectors</module>
-        <module>core-integration-test</module>
+<!--        <module>core-integration-test</module>-->
         <module>distribution</module>
     </modules>
     <dependencies>
