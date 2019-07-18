@@ -547,6 +547,7 @@ public class DefaultAPIProvider implements APIProvider {
         bind(WorkflowEnvironmentService.class, WorkflowEnvironmentServiceImpl.class);
         bind(CronTriggerService.class, CronTriggerServiceImpl.class);
         bind(org.openstack4j.api.gnocchi.ResourceService.class, org.openstack4j.openstack.gnocchi.internal.ResourceServiceImpl.class);
+        bind(org.openstack4j.api.gnocchi.GnocchiService.class, org.openstack4j.openstack.gnocchi.internal.GnocchiServiceImpl.class);
     }
 
     /**
