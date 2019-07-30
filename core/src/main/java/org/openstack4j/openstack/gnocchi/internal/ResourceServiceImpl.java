@@ -1,6 +1,7 @@
 package org.openstack4j.openstack.gnocchi.internal;
 
 import org.openstack4j.api.gnocchi.ResourceService;
+import org.openstack4j.core.transport.ClientConstants;
 import org.openstack4j.model.gnocchi.Resource;
 import org.openstack4j.openstack.gnocchi.domain.GnocchiResource;
 
@@ -30,14 +31,16 @@ public class ResourceServiceImpl extends BaseGnocchiServices implements Resource
 
         return get(Object[][].class,
                    uri("/v1/resource/%s/%s/metric/%s/measures?start=%s", resourceType, resourceId, metricType,
-                       sdf.format(Date.from(localDateTime.toInstant(ZoneOffset.ofHours(16)))))).execute();
+                       sdf.format(Date.from(localDateTime.toInstant(ZoneOffset.ofHours(16)))))).header(
+                ClientConstants.HEADER_ACCEPT, "*/*").execute();
     }
 
     @Override
     public List<? extends Resource> listResource(String resourceType, String json) {
         checkNotNull(json);
         GnocchiResource[] resources = post(GnocchiResource[].class,
-                                           uri("/v1/search/resource/%s", resourceType)).execute();
+                                           uri("/v1/search/resource/%s", resourceType)).header(
+                ClientConstants.HEADER_ACCEPT, "*/*").execute();
         return wrapList(resources);
     }
 }
