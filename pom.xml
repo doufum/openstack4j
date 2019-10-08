@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pacesys</groupId>
     <artifactId>openstack4j-parent</artifactId>
-    <version>3.2.2.20190730-RC</version>
+    <version>3.2.2.20191008-RC</version>
     <name>OpenStack4j Parent</name>
     <description>OpenStack Java API</description>
     <url>http://github.com/ContainX/openstack4j/</url>
@@ -35,9 +35,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:http://10.68.6.20:8082/cloudstar/rightcloud-server.git</connection>
-        <url>http://10.68.6.20:8082/cloudstar/rightcloud-server</url>
-        <developerConnection>scm:git:http://10.68.6.20:8082/cloudstar/rightcloud-server.git</developerConnection>
+        <connection>scm:git:https://github.com/doufum/openstack4j.git</connection>
+        <url>https://github.com/doufum/openstack4j</url>
+        <developerConnection>scm:git:https://github.com/doufum/openstack4j.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
