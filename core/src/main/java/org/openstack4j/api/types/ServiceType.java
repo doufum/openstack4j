@@ -7,7 +7,7 @@ public enum ServiceType {
 	APP_CATALOG("murano", "application-catalog"),
 	COMPUTE("nova", "compute"),
 	IMAGE("glance", "image"),
-	BLOCK_STORAGE("cinder", "volume"),
+	BLOCK_STORAGE("cinderv3", "volumev3"),
 	OBJECT_STORAGE("object-store", "object-store"),
 	NETWORK("neutron", "network"),
 	OCTAVIA("octavia", "load-balancer"),
