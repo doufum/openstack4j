@@ -1,10 +1,10 @@
 package org.openstack4j.model.network;
 
-import java.util.List;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.common.Resource;
 import org.openstack4j.model.network.builder.RouterBuilder;
+
+import java.util.List;
 
 /**
  * A router is used to interconnect subnets and forward traffic among them. Another feature of the router is to NAT internal traffic to external networks.
@@ -46,4 +46,11 @@ public interface Router extends Resource, Buildable<RouterBuilder> {
 	 * @return
 	 */
 	Boolean getDistributed();
+
+	/**
+	 * A human-readable description for the resource. Default is an empty string.
+	 *
+	 * @return
+	 */
+	String getDescription();
 }

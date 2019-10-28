@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
+
 import org.openstack4j.model.common.builder.ResourceBuilder;
 import org.openstack4j.model.network.ExternalGateway;
 import org.openstack4j.model.network.HostRoute;
@@ -48,6 +49,9 @@ public class NeutronRouter implements Router {
 
     @JsonProperty("distributed")
     private Boolean distributed;
+
+    @JsonProperty("description")
+    private String description;
 
     public static RouterBuilder builder() {
         return new RouterConcreteBuilder();
@@ -142,6 +146,11 @@ public class NeutronRouter implements Router {
     @Override
     public Boolean getDistributed() {
         return distributed;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -311,6 +320,15 @@ public class NeutronRouter implements Router {
         @Override
         public RouterBuilder distributed(Boolean distributed) {
             m.distributed = distributed;
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public RouterBuilder description(String description) {
+            m.description = description;
             return this;
         }
     }

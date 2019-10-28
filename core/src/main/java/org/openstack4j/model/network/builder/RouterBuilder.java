@@ -41,7 +41,12 @@ public interface RouterBuilder extends Builder<RouterBuilder, Router> {
 	 * @see Router#getExternalGatewayInfo()
 	 */
 	RouterBuilder externalGateway(String networkId);
-	
+
+	/**
+	 * @see Router#getDescription()
+	 */
+	RouterBuilder description(String description);
+
 	/**
 	 * @see Router#getExternalGatewayInfo()
 	 */
