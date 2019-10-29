@@ -1,10 +1,5 @@
 package org.openstack4j.openstack.networking.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-
-import java.util.List;
-
 import org.openstack4j.api.networking.RouterService;
 import org.openstack4j.core.transport.ExecutionOptions;
 import org.openstack4j.core.transport.propagation.PropagateOnStatus;
@@ -18,6 +13,11 @@ import org.openstack4j.openstack.networking.domain.AddRouterInterfaceAction;
 import org.openstack4j.openstack.networking.domain.NeutronRouter;
 import org.openstack4j.openstack.networking.domain.NeutronRouter.Routers;
 import org.openstack4j.openstack.networking.domain.NeutronRouterInterface;
+
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * RouterService implementation that provides Neutron Router based Service Operations.
@@ -77,8 +77,12 @@ public class RouterServiceImpl extends BaseNetworkingServices implements RouterS
 	public Router update(Router router) {
 		checkNotNull(router);
 		checkNotNull(router.getId());
-		
-		RouterBuilder rb = NeutronRouter.builder().name(router.getName()).adminStateUp(router.isAdminStateUp()).externalGateway(router.getExternalGatewayInfo());
+
+		RouterBuilder rb = NeutronRouter.builder()
+										.name(router.getName())
+										.adminStateUp(router.isAdminStateUp())
+										.externalGateway(router.getExternalGatewayInfo())
+										.description(router.getDescription());
 		List<? extends HostRoute> routes = router.getRoutes();
 		
 		if (routes != null && !routes.isEmpty()) {
