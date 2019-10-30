@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
+
 import org.openstack4j.model.network.ext.MemberV2;
 import org.openstack4j.model.network.ext.builder.MemberV2Builder;
 import org.openstack4j.openstack.common.ListResult;
@@ -37,6 +38,14 @@ public class NeutronMemberV2 implements MemberV2 {
 
     @JsonProperty("admin_state_up")
     private boolean adminStateUp = true;
+
+    private String name;
+
+    @JsonProperty("monitor_address")
+    private String monitorAddress;
+
+    @JsonProperty("monitor_port")
+    private Integer monitorPort;
 
     /**
      * {@inheritDoc}
@@ -95,16 +104,32 @@ public class NeutronMemberV2 implements MemberV2 {
     }
 
     @Override
-    public String toString(){
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getMonitorAddress() {
+        return monitorAddress;
+    }
+
+    @Override
+    public Integer getMonitorPort() {
+        return monitorPort;
+    }
+
+    @Override
+    public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("tenantId", tenantId)
-                .add("address", address)
-                .add("protocolPort", protocolPort)
-                .add("adminStateUp", adminStateUp)
-                .add("weight",weight)
-                .add("subnetId",subnetId)
-                .toString();
+                          .add("id", id)
+                          .add("tenantId", tenantId)
+                          .add("address", address)
+                          .add("protocolPort", protocolPort)
+                          .add("adminStateUp", adminStateUp)
+                          .add("weight", weight)
+                          .add("subnetId", subnetId)
+                          .add("name", name)
+                          .toString();
     }
 
     public static class MembersV2 extends ListResult<NeutronMemberV2> {
@@ -203,6 +228,24 @@ public class NeutronMemberV2 implements MemberV2 {
         @Override
         public MemberV2Builder adminStateUp(boolean adminStateUp){
             m.adminStateUp = adminStateUp;
+            return this;
+        }
+
+        @Override
+        public MemberV2Builder name(String name) {
+            m.name = name;
+            return this;
+        }
+
+        @Override
+        public MemberV2Builder monitorAddress(String monitorAddress) {
+            m.monitorAddress = monitorAddress;
+            return this;
+        }
+
+        @Override
+        public MemberV2Builder monitorPort(Integer monitorPort) {
+            m.monitorPort = monitorPort;
             return this;
         }
     }

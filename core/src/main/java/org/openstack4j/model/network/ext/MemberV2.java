@@ -45,4 +45,21 @@ public interface MemberV2  extends ModelEntity, Buildable<MemberV2Builder> {
      */
     boolean isAdminStateUp();
 
+    /**
+     * @return Human-readable name of the resource.
+     */
+    String getName();
+
+    /**
+     * @return An alternate IP address used for health monitoring a backend member.
+     *          Default is null which monitors the member address.
+     */
+    String getMonitorAddress();
+
+    /**
+     * @return An alternate protocol port used for health monitoring a backend member.
+     *          Default is null which monitors the member protocol_port.
+     */
+    Integer getMonitorPort();
+
 }

@@ -18,4 +18,9 @@ public interface MemberV2Update extends ModelEntity, Buildable<MemberV2UpdateBui
      * @see MemberV2#getWeight()
      */
     public Integer getWeight();
+
+    /**
+     * @see MemberV2#getName()
+     */
+    String getName();
 }
