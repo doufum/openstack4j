@@ -1,11 +1,12 @@
 package org.openstack4j.model.storage.block;
 
-import java.util.Date;
-import java.util.Map;
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.storage.block.Volume.Status;
 import org.openstack4j.model.storage.block.builder.VolumeSnapshotBuilder;
+
+import java.util.Date;
+import java.util.Map;
 
 /**
  * An OpenStack Volume Snapshot which is a point-in-time copy of a volume
@@ -34,12 +35,6 @@ public interface VolumeSnapshot extends ModelEntity, Buildable<VolumeSnapshotBui
 	 * @return the description of the snapshot
 	 */
 	String getDescription();
-
-	/**
-	 * @return the display description of the snapshot
-	 */
-	@Deprecated
-	String getDisplayDescription();
 
 	/**
 	 * The volume identifier of an existing volume
