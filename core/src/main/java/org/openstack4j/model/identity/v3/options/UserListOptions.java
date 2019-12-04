@@ -27,7 +27,7 @@ public class UserListOptions {
      * @return options
      */
     public UserListOptions domainId(String domainId) {
-        return add("domain_id ", domainId);
+        return add("domain_id", domainId);
     }
     
     /**
