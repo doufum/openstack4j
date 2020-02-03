@@ -1,9 +1,8 @@
 package org.openstack4j.openstack.networking.domain;
 
-import com.google.common.base.MoreObjects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.network.NetFloatingIP;
 import org.openstack4j.model.network.builder.NetFloatingIPBuilder;
@@ -46,6 +45,9 @@ public class NeutronFloatingIP implements NetFloatingIP {
     private Integer bandwidth;
 
     private String status;
+
+    @JsonProperty("qos_policy_id")
+    private String qosPolicyId;
 
     /**
      * {@inheritDoc}
@@ -185,11 +187,23 @@ public class NeutronFloatingIP implements NetFloatingIP {
         return this.bandwidth;
     }
 
+    @Override
+    public String getQosPolicyId() {
+        return this.qosPolicyId;
+    }
+
     /**
      * {@inheritDoc}
      */
     public void setBandwidth(Integer bandwidth) {
         this.bandwidth = bandwidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setQosPolicyId(String qosPolicyId) {
+        this.qosPolicyId = qosPolicyId;
     }
 
     /**
@@ -215,6 +229,7 @@ public class NeutronFloatingIP implements NetFloatingIP {
                           .add("portId", portId)
                           .add("status", status)
                           .add("bandwidth", bandwidth)
+                          .add("qosPolicyId", qosPolicyId)
                           .addValue("\n")
                           .toString();
     }
@@ -232,6 +247,7 @@ public class NeutronFloatingIP implements NetFloatingIP {
                                       fixedIpAddress,
                                       portId,
                                       status,
+                                      qosPolicyId,
                                       bandwidth);
     }
 
@@ -246,19 +262,16 @@ public class NeutronFloatingIP implements NetFloatingIP {
 
         if (obj instanceof NeutronFloatingIP) {
             NeutronFloatingIP that = (NeutronFloatingIP) obj;
-            if (java.util.Objects.equals(id, that.id) && java.util.Objects.equals(routerId,
-                                                                                  that.routerId) && java.util.Objects.equals(
-                    tenantId,
-                    that.tenantId) && java.util.Objects.equals(floatingNetworkId,
-                                                               that.floatingNetworkId) && java.util.Objects.equals(
-                    floatingIpAddress,
-                    that.floatingIpAddress) && java.util.Objects.equals(fixedIpAddress,
-                                                                        that.fixedIpAddress) && java.util.Objects.equals(
-                    portId,
-                    that.portId) && java.util.Objects.equals(status, that.status) && java.util.Objects.equals(bandwidth,
-                                                                                                              that.bandwidth)) {
-                return true;
-            }
+            return java.util.Objects.equals(id, that.id)
+                    && java.util.Objects.equals(routerId, that.routerId)
+                    && java.util.Objects.equals(tenantId, that.tenantId)
+                    && java.util.Objects.equals(floatingNetworkId, that.floatingNetworkId)
+                    && java.util.Objects.equals(floatingIpAddress, that.floatingIpAddress)
+                    && java.util.Objects.equals(fixedIpAddress, that.fixedIpAddress)
+                    && java.util.Objects.equals(portId, that.portId)
+                    && java.util.Objects.equals(status, that.status)
+                    && java.util.Objects.equals(qosPolicyId, that.qosPolicyId)
+                    && java.util.Objects.equals(bandwidth, that.bandwidth);
         }
         return false;
     }
@@ -344,6 +357,11 @@ public class NeutronFloatingIP implements NetFloatingIP {
             return this;
         }
 
+        @Override
+        public NetFloatingIPBuilder qosPolicyId(String qosPolicyId) {
+            f.qosPolicyId = qosPolicyId;
+            return this;
+        }
     }
 
 }

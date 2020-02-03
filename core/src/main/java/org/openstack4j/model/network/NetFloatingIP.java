@@ -73,4 +73,11 @@ public interface NetFloatingIP extends ModelEntity, Buildable<NetFloatingIPBuild
      * @return the floating ip bandwidth
      */
     Integer getBandwidth();
+
+    /**
+     * Gets the floating ip QosPolicyId
+     *
+     * @return qos_policy_id
+     */
+    String getQosPolicyId();
 }
