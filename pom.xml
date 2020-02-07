@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pacesys</groupId>
     <artifactId>openstack4j-parent</artifactId>
-    <version>3.2.2.20200203-RC</version>
+    <version>3.2.2.20200207-RC</version>
     <name>OpenStack4j Parent</name>
     <description>OpenStack Java API</description>
     <url>http://github.com/ContainX/openstack4j/</url>
@@ -43,11 +43,11 @@
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
-            <url>http://10.68.6.20:8081/repository/maven-releases/</url>
+            <url>http://218.17.169.171:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>maven-snapshots</id>
-            <url>http://10.68.6.20:8081/repository/maven-snapshots/</url>
+            <url>http://218.17.169.171:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <mailingLists>
