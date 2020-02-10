@@ -1,5 +1,18 @@
 package org.openstack4j.connectors.okhttp;
 
+import com.google.common.io.ByteStreams;
+
+import org.openstack4j.core.transport.ClientConstants;
+import org.openstack4j.core.transport.Config;
+import org.openstack4j.core.transport.HttpMethod;
+import org.openstack4j.core.transport.HttpRequest;
+import org.openstack4j.core.transport.ObjectMapperSingleton;
+import org.openstack4j.core.transport.UntrustedSSL;
+import org.openstack4j.core.transport.functions.EndpointURIFromRequestFunction;
+import org.openstack4j.core.transport.internal.HttpLoggingFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -20,18 +33,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.internal.Util;
-import org.openstack4j.core.transport.ClientConstants;
-import org.openstack4j.core.transport.Config;
-import org.openstack4j.core.transport.HttpMethod;
-import org.openstack4j.core.transport.HttpRequest;
-import org.openstack4j.core.transport.ObjectMapperSingleton;
-import org.openstack4j.core.transport.UntrustedSSL;
-import org.openstack4j.core.transport.functions.EndpointURIFromRequestFunction;
-import org.openstack4j.core.transport.internal.HttpLoggingFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.io.ByteStreams;
 
 /**
  * HttpCommand is responsible for executing the actual request driven by the HttpExecutor.
@@ -41,9 +42,10 @@ import com.google.common.io.ByteStreams;
 public final class HttpCommand<R> {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpCommand.class);
+    private static OkHttpClient client;
 
-    private HttpRequest<R> request;
-    private OkHttpClient client;
+    private final HttpRequest<R> request;
+    private OkHttpClient reqClient;
     private Request.Builder clientReq;
     private int retries;
 
@@ -63,12 +65,20 @@ public final class HttpCommand<R> {
     }
 
     private void initialize() {
-        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+        if (client == null) {
+            synchronized (HttpCommand.class) {
+                if (client == null) {
+                    client = getClient(request.getConfig());
+                }
+            }
+        }
+
+        OkHttpClient.Builder okHttpClientBuilder = client.newBuilder();
         Config config = request.getConfig();
 
         if (config.getProxy() != null) {
             okHttpClientBuilder.proxy(new Proxy(Type.HTTP,
-                    new InetSocketAddress(config.getProxy().getRawHost(), config.getProxy().getPort())));
+                                                new InetSocketAddress(config.getProxy().getRawHost(), config.getProxy().getPort())));
         }
 
         if (config.getConnectTimeout() > 0)
@@ -91,8 +101,8 @@ public final class HttpCommand<R> {
         if (HttpLoggingFilter.isLoggingEnabled()) {
             okHttpClientBuilder.addInterceptor(new LoggingInterceptor());
         }
-        okHttpClientBuilder.connectionPool(getConnectionPool());
-        client = okHttpClientBuilder.build();
+
+        reqClient = okHttpClientBuilder.build();
         clientReq = new Request.Builder();
         populateHeaders(request);
         populateQueryParams(request);
@@ -101,7 +111,7 @@ public final class HttpCommand<R> {
     /**
      * Create ConnectionPool optimized for short lived client with little chance to reuse connections.
      */
-    private ConnectionPool getConnectionPool() {
+    private static OkHttpClient getClient(Config config) {
         int maxIdleConnections = 0;
         // OkHttp creates "OkHttp ConnectionPool" thread per every ConnectionPool created to mange its connections. It
         // lives as long as the last connection made through it + its keep alive timeout. By default that it 5 min which
@@ -109,7 +119,15 @@ public final class HttpCommand<R> {
         // at least). Setting strict keepAlive duration here so the connections and threads does not hang around longer
         // than necessary.
         int keepAliveDuration = 500;
-        return new ConnectionPool(maxIdleConnections, keepAliveDuration, TimeUnit.MILLISECONDS);
+        ConnectionPool cp = new ConnectionPool(maxIdleConnections, keepAliveDuration, TimeUnit.MILLISECONDS);
+
+        // OkHttp performs best when you create a single `OkHttpClient` instance and reuse it for all of
+        // your HTTP calls. This is because each client holds its own connection pool and thread pools.
+        // Reusing connections and threads reduces latency and saves memory. Conversely, creating a client
+        // for each request wastes resources on idle pools.
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.connectionPool(cp).build();
+        return clientBuilder.build();
     }
 
     /**
@@ -138,7 +156,7 @@ public final class HttpCommand<R> {
             body = RequestBody.create(null, Util.EMPTY_BYTE_ARRAY);
         }
         clientReq.method(request.getMethod().name(), body);
-        Call call = client.newCall(clientReq.build());
+        Call call = reqClient.newCall(clientReq.build());
         return call.execute();
     }
 
@@ -215,12 +233,12 @@ public final class HttpCommand<R> {
 
             long t1 = System.nanoTime();
             System.err.println(String.format("Sending request %s on %s%n%s",
-                    request.url(), chain.connection(), request.headers()));
+                                             request.url(), chain.connection(), request.headers()));
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();
             System.err.println(String.format("Received response for %s in %.1fms%n%s",
-                    response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+                                             response.request().url(), (t2 - t1) / 1e6d, response.headers()));
             return response;
         }
     }
