@@ -37,6 +37,8 @@ public class ExtHypervisor implements Hypervisor {
     private int runningVM;
     @JsonProperty("vcpus")
     private int virtualCPU;
+    @JsonProperty("cpu_allocation_ratio")
+    private float cpuAllocationRatio;
     @JsonProperty("vcpus_used")
     private int virtualUsedCPU;
     @JsonProperty("local_gb")
@@ -115,6 +117,11 @@ public class ExtHypervisor implements Hypervisor {
     }
 
     @Override
+    public float getCpuAllocationRatio() {
+        return cpuAllocationRatio;
+    }
+
+    @Override
     public int getVirtualUsedCPU() {
         return virtualUsedCPU;
     }
@@ -174,6 +181,7 @@ public class ExtHypervisor implements Hypervisor {
                 .add("localMemory", localMemory).add("localMemoryUsed", localMemoryUsed).add("currentWorkload", currentWorkload)
                 .add("leastDiskAvail", leastDiskAvailable).add("running_vms", runningVM).add("service", service)
                 .add("cpuInfo", cpuInfo)
+                .add("cpuAllocationRatio", cpuAllocationRatio)
                 .add("status", status)
                 .add("state", state)
                 .toString();
