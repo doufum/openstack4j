@@ -2,7 +2,7 @@
     <parent>
         <groupId>org.pacesys.openstack4j.connectors</groupId>
         <artifactId>openstack4j-connectors</artifactId>
-        <version>3.2.2.20200212-RC</version>
+        <version>3.2.2.20200220-RC</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>openstack4j-okhttp</artifactId>
@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <okhttp.version>4.3.0</okhttp.version>
+        <okhttp.version>3.2.0</okhttp.version>
     </properties>
 
     <dependencies>

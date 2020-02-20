@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.pacesys</groupId>
 		<artifactId>openstack4j-core-integration-test</artifactId>
-		<version>3.2.2.20200212-RC</version>
+		<version>3.2.2.20200220-RC</version>
 	</parent>
 	<artifactId>it-okhttp</artifactId>
 	<name>OpenStack4j IntegrationTest OKHttp Connector</name>
