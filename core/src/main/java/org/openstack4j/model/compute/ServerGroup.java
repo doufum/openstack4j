@@ -1,9 +1,9 @@
 package org.openstack4j.model.compute;
 
+import org.openstack4j.model.ModelEntity;
+
 import java.util.List;
 import java.util.Map;
-
-import org.openstack4j.model.ModelEntity;
 
 /**
  * An OpenStack ServerGroup which is a group that the server in it must be Located on different hosts
@@ -36,4 +36,9 @@ public interface ServerGroup extends ModelEntity {
 	 * @return the polices of this group
 	 */
 	List<String> getPolicies();
+
+	/**
+	 * @return the id of project
+	 */
+	String getProjectId();
 }

@@ -1,16 +1,16 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.openstack4j.model.compute.ServerGroup;
-import org.openstack4j.openstack.common.ListResult;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
+
+import org.openstack4j.model.compute.ServerGroup;
+import org.openstack4j.openstack.common.ListResult;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @JsonRootName("server_group")
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -23,6 +23,7 @@ public class NovaServerGroup implements ServerGroup{
 	private List<String> members;
 	private Map<String, String> metadata;
 	private List<String> policies;
+	private String projectId;
 
 	public static NovaServerGroup create(String name, String policy) {
 		NovaServerGroup ns = new NovaServerGroup();
@@ -58,7 +59,10 @@ public class NovaServerGroup implements ServerGroup{
 		return policies;
 	}
 
-
+	@Override
+	public String getProjectId() {
+		return projectId;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -76,7 +80,7 @@ public class NovaServerGroup implements ServerGroup{
 	public String toString() {
 		return MoreObjects.toStringHelper(this).omitNullValues()
 				   .add("id",id).add("name", name).add("members", members)
-				   .add("policies", policies).add("metadata", metadata)
+				   .add("policies", policies).add("metadata", metadata).add("projectId", projectId)
 				   .toString();
 	}
 
