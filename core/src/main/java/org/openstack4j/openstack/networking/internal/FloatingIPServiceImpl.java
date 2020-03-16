@@ -1,7 +1,11 @@
 package org.openstack4j.openstack.networking.internal;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.openstack4j.api.Builders;
 import org.openstack4j.api.networking.NetFloatingIPService;
 import org.openstack4j.core.transport.ExecutionOptions;
+import org.openstack4j.core.transport.ObjectMapperSingleton;
 import org.openstack4j.core.transport.propagation.PropagateOnStatus;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.network.NetFloatingIP;
@@ -83,6 +87,14 @@ public class FloatingIPServiceImpl extends BaseNetworkingServices implements Net
         checkNotNull(floatingIp.getFloatingNetworkId());
         return post(NeutronFloatingIP.class, uri("/floatingips")).entity(floatingIp)
                 .execute(ExecutionOptions.create(PropagateOnStatus.on(404)));
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        NetFloatingIP floatingIP = Builders.netFloatingIP().floatingNetworkId("test").portId("test2").build();
+        String content = ObjectMapperSingleton.getContext(NetFloatingIP.class)
+                                              .writer()
+                                              .writeValueAsString(floatingIP);
+        System.out.println(content);
     }
 
     /**

@@ -362,6 +362,12 @@ public class NeutronFloatingIP implements NetFloatingIP {
             f.qosPolicyId = qosPolicyId;
             return this;
         }
+
+        @Override
+        public NetFloatingIPBuilder bandwidth(Integer bandwidth) {
+            f.bandwidth = bandwidth;
+            return this;
+        }
     }
 
 }

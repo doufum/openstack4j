@@ -36,4 +36,13 @@ public interface NetFloatingIPBuilder extends Builder<NetFloatingIPBuilder, NetF
      * @return the floating ip builder
      */
     NetFloatingIPBuilder qosPolicyId(String qosPolicyId);
+
+    /**
+     * bandwidth
+     *
+     * @param bandwidth bandwidth
+     *
+     * @return the floating ip builder
+     */
+    NetFloatingIPBuilder bandwidth(Integer bandwidth);
 }
