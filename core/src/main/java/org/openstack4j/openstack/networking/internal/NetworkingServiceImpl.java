@@ -15,6 +15,7 @@ import org.openstack4j.api.networking.ext.FirewallAsService;
 import org.openstack4j.api.networking.ext.LbaasV2Service;
 import org.openstack4j.api.networking.ext.LoadBalancerService;
 import org.openstack4j.api.networking.ext.NetQuotaService;
+import org.openstack4j.api.networking.ext.NetworkIPAvailabilityService;
 import org.openstack4j.api.networking.qos.NetQosService;
 
 /**
@@ -136,4 +137,11 @@ public class NetworkingServiceImpl implements NetworkingService {
         return Apis.get(AvailabilityZoneService.class);
     }	
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NetworkIPAvailabilityService networkIPAvailability() {
+        return Apis.get(NetworkIPAvailabilityService.class);
+    }
 }

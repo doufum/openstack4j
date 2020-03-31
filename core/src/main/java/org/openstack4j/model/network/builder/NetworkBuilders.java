@@ -23,6 +23,7 @@ import org.openstack4j.model.network.ext.builder.MemberBuilder;
 import org.openstack4j.model.network.ext.builder.MemberUpdateBuilder;
 import org.openstack4j.model.network.ext.builder.MemberV2Builder;
 import org.openstack4j.model.network.ext.builder.MemberV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.NetworkIPAvailabilityBuilder;
 import org.openstack4j.model.network.ext.builder.SessionPersistenceBuilder;
 import org.openstack4j.model.network.ext.builder.VipBuilder;
 import org.openstack4j.model.network.ext.builder.VipUpdateBuilder;
@@ -309,4 +310,11 @@ public interface NetworkBuilders {
      * @return HealthMonitorV2UpdateBuilder
      */
     public HealthMonitorV2UpdateBuilder healthMonitorV2Update();
+
+    /**
+     * The builder to create a network IP availability entity
+     *
+     * @return the NetworkIPAvailability builder
+     */
+    public NetworkIPAvailabilityBuilder networkIPAvailability();
 }

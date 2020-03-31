@@ -1,11 +1,11 @@
 package org.openstack4j.model.identity.v3.builder;
 
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.common.Buildable.Builder;
 import org.openstack4j.model.identity.v3.Domain;
 import org.openstack4j.model.identity.v3.Project;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * A Builder which creates a identity v3 project
@@ -47,6 +47,8 @@ public interface ProjectBuilder extends Builder<ProjectBuilder, Project> {
 	 * @see Project#getName()
 	 */
 	ProjectBuilder name(String name);
+
+    ProjectBuilder options(Map<String, String> options);
 
 	/**
 	 * 

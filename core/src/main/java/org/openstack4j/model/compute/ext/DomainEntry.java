@@ -1,17 +1,19 @@
 package org.openstack4j.model.compute.ext;
 
-import org.openstack4j.model.ModelEntity;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import org.openstack4j.model.ModelEntity;
 
 /**
  * A Floating IP DNS Extension - Domain Entry
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public interface DomainEntry extends ModelEntity {
     
+    @Deprecated
     public enum Scope {
         PUBLIC,
         PRIVATE

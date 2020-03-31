@@ -1,13 +1,13 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.compute.HostResource;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.List;
 
 /**
  * Nova Host Resource describes the capacity and capability of a compute host that provides compute service
@@ -16,6 +16,7 @@ import com.google.common.base.MoreObjects;
  * @author Elina Meier
  */
 @JsonRootName("resource")
+@Deprecated
 public class NovaHostResource implements HostResource {
 
     public static final long serialVersionUID = 1L;
@@ -123,6 +124,7 @@ public class NovaHostResource implements HostResource {
 	 * @author Wang Ting/王婷
 	 *
 	 */
+	@Deprecated
 	public static class NovaHostResources extends ListResult<NovaHostResource> {
 
 		private static final long serialVersionUID = 1L;

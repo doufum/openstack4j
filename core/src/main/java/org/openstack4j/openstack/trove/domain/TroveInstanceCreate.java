@@ -1,11 +1,11 @@
 package org.openstack4j.openstack.trove.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import org.openstack4j.model.trove.Datastore;
 import org.openstack4j.model.trove.InstanceCreate;
 import org.openstack4j.model.trove.builder.InstanceCreateBuilder;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * Model implementation for Database instance creation
@@ -26,6 +26,8 @@ public class TroveInstanceCreate implements InstanceCreate {
     private String name;
     @JsonProperty("datastore")
     private Datastore datastore;
+    @JsonProperty("availability_zone")
+    private String availabilityZone;
 
     /**
      *
@@ -82,6 +84,13 @@ public class TroveInstanceCreate implements InstanceCreate {
         this.datastore = datastore;
     }
 
+    /**
+     * @param availabilityZone
+     */
+    @Override
+    public void setAvailabilityZone(String availabilityZone) {
+        this.availabilityZone = availabilityZone;
+    }
     public class Volume {
 
         @JsonProperty("type")
@@ -184,6 +193,11 @@ public class TroveInstanceCreate implements InstanceCreate {
             return this;
         }
 
+        @Override
+        public InstanceCreateBuilder availabilityZone(String availabilityZone) {
+            instance.setAvailabilityZone(availabilityZone);
+            return this;
+        }
     }
 
     public static InstanceCreateBuilder builder() {

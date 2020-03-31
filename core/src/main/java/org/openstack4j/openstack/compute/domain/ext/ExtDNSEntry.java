@@ -1,15 +1,15 @@
 package org.openstack4j.openstack.compute.domain.ext;
 
-import static com.google.common.base.MoreObjects.toStringHelper;
-
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import org.openstack4j.model.compute.ext.DNSEntry;
 import org.openstack4j.model.compute.ext.DNSRecordType;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import java.util.List;
+
+import static com.google.common.base.MoreObjects.toStringHelper;
 
 /**
  * A Floating IP DNS Extension - DNS Entry
@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
  * @author Jeremy Unruh
  */
 @JsonRootName("dns_entry")
+@Deprecated
 public class ExtDNSEntry implements DNSEntry {
 
     private static final long serialVersionUID = 1L;
@@ -77,6 +78,7 @@ public class ExtDNSEntry implements DNSEntry {
                  .toString();
     }
 
+    @Deprecated
     public static class DNSEntries extends ListResult<ExtDNSEntry> {
 
         private static final long serialVersionUID = 1L;

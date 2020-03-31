@@ -37,6 +37,12 @@ public interface VolumeSnapshot extends ModelEntity, Buildable<VolumeSnapshotBui
 	String getDescription();
 
 	/**
+	 * @return the display description of the snapshot
+	 */
+	@Deprecated
+	String getDisplayDescription();
+
+	/**
 	 * The volume identifier of an existing volume
 	 *
 	 * @return the volume identifier or null

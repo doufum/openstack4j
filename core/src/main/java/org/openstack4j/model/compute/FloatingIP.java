@@ -10,6 +10,7 @@ import org.openstack4j.model.compute.builder.FloatingIPBuilder;
  *
  * @author nanderson
  */
+@Deprecated
 public interface FloatingIP extends ModelEntity, Buildable<FloatingIPBuilder> {
 
   /**

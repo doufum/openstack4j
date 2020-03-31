@@ -1,18 +1,18 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.common.Link;
 import org.openstack4j.model.compute.Image;
 import org.openstack4j.openstack.common.GenericLink;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An OpenStack image is a collection of files used to create a Server.  Users provide pre-built OS images by default and or custom
@@ -21,6 +21,7 @@ import com.google.common.base.MoreObjects;
  * @author Jeremy Unruh
  */
 @JsonRootName("image")
+@Deprecated
 public class NovaImage implements Image {
 
 	private static final long serialVersionUID = 1L;
@@ -160,6 +161,7 @@ public class NovaImage implements Image {
 						.toString();
 	}
 
+	@Deprecated
 	public static class NovaImages extends ListResult<NovaImage> {
 
 		private static final long serialVersionUID = 1L;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
+
 import org.openstack4j.model.common.Extension;
 import org.openstack4j.model.common.Link;
 
@@ -15,7 +16,9 @@ import java.util.List;
  * Represents an Extension which adds additional functionality to the OpenStack API
  *
  * @author Jeremy Unruh
+ * @deprecated https://specs.openstack.org/openstack/nova-specs/specs/newton/implemented/api-no-more-extensions.html
  */
+@Deprecated
 public class ExtensionValue implements Extension {
 
 	private static final long serialVersionUID = 1L;

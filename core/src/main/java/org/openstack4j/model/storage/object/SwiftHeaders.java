@@ -24,7 +24,8 @@ public final class SwiftHeaders {
 
     // Versioning
     public static final String VERSIONS_LOCATION = "X-Versions-Location";
-    
+    public static final String HISTORY_LOCATION  = "X-History-Location";
+
     // ACL's (not all implementations support this)
     public static final String CONTAINER_READ = "X-Container-Read";
     public static final String CONTAINER_WRITE = "X-Container-Write";

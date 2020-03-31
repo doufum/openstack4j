@@ -180,7 +180,7 @@ public class CinderVolume implements Volume {
 	 */
 	@Override
 	public MigrationStatus getMigrateStatus() {
-		return migrateStatus != null ? migrateStatus : MigrationStatus.NONE;
+		return migrateStatus;
 	}
 
 	/**

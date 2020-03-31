@@ -9,9 +9,22 @@ import org.openstack4j.model.storage.block.Volume;
 import org.openstack4j.model.storage.block.VolumeType;
 import org.openstack4j.model.storage.block.VolumeUploadImage;
 import org.openstack4j.model.storage.block.options.UploadImageData;
-import org.openstack4j.openstack.storage.block.domain.*;
+import org.openstack4j.openstack.storage.block.domain.AttachAction;
+import org.openstack4j.openstack.storage.block.domain.CinderUploadImageData;
+import org.openstack4j.openstack.storage.block.domain.CinderVolume;
 import org.openstack4j.openstack.storage.block.domain.CinderVolume.Volumes;
+import org.openstack4j.openstack.storage.block.domain.CinderVolumeMigration;
+import org.openstack4j.openstack.storage.block.domain.CinderVolumeType;
 import org.openstack4j.openstack.storage.block.domain.CinderVolumeType.VolumeTypes;
+import org.openstack4j.openstack.storage.block.domain.CinderVolumeUploadImage;
+import org.openstack4j.openstack.storage.block.domain.DetachAction;
+import org.openstack4j.openstack.storage.block.domain.ExtendAction;
+import org.openstack4j.openstack.storage.block.domain.ForceDeleteAction;
+import org.openstack4j.openstack.storage.block.domain.ForceDetachAction;
+import org.openstack4j.openstack.storage.block.domain.ForceDetachConnector;
+import org.openstack4j.openstack.storage.block.domain.ResetStatusAction;
+import org.openstack4j.openstack.storage.block.domain.SetBootableAction;
+import org.openstack4j.openstack.storage.block.domain.UpdateReadOnlyFlagAction;
 
 import java.util.List;
 import java.util.Map;
@@ -48,6 +61,14 @@ public class BlockVolumeServiceImpl extends BaseBlockStorageServices implements 
     public List<? extends Volume> list(Map<String, String> filteringParams) {
         Invocation<Volumes> volumeInvocation = buildInvocation(filteringParams);
         return volumeInvocation.execute().getList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<? extends Volume> listAll() {
+        return get(Volumes.class, uri("/volumes/detail")).param("all_tenants", 1).execute().getList();
     }
 
     /**

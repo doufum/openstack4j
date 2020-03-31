@@ -1,13 +1,13 @@
 package org.openstack4j.model.compute;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.common.Link;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An OpenStack image is a collection of files used to create a Server.  Users provide pre-built OS images by default and or custom
@@ -15,12 +15,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public interface Image extends ModelEntity {
 
 	/**
 	 * Status can be used while an image is being saved.  It provides state of the progress indicator.  Images with ACTIVE status
 	 * are available for install.
 	 */
+	@Deprecated
 	enum Status {
 		UNRECOGNIZED, UNKNOWN, ACTIVE, SAVING, ERROR, DELETED;
 		

@@ -107,6 +107,7 @@ import org.openstack4j.api.networking.ext.LoadBalancerService;
 import org.openstack4j.api.networking.ext.LoadBalancerV2Service;
 import org.openstack4j.api.networking.ext.MemberService;
 import org.openstack4j.api.networking.ext.NetQuotaService;
+import org.openstack4j.api.networking.ext.NetworkIPAvailabilityService;
 import org.openstack4j.api.networking.ext.PortChainService;
 import org.openstack4j.api.networking.ext.PortPairGroupService;
 import org.openstack4j.api.networking.ext.PortPairService;
@@ -288,6 +289,7 @@ import org.openstack4j.openstack.networking.internal.ext.LoadBalancerServiceImpl
 import org.openstack4j.openstack.networking.internal.ext.LoadBalancerV2ServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.MemberServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.NetQuotaServiceImpl;
+import org.openstack4j.openstack.networking.internal.ext.NetworkIPAvailabilityServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.PortChainServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.PortPairGroupServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.PortPairServiceImpl;
@@ -582,6 +584,7 @@ public class DefaultAPIProvider implements APIProvider {
         bind(CronTriggerService.class, CronTriggerServiceImpl.class);
         bind(org.openstack4j.api.gnocchi.ResourceService.class, org.openstack4j.openstack.gnocchi.internal.ResourceServiceImpl.class);
         bind(org.openstack4j.api.gnocchi.GnocchiService.class, org.openstack4j.openstack.gnocchi.internal.GnocchiServiceImpl.class);
+        bind(NetworkIPAvailabilityService.class, NetworkIPAvailabilityServiceImpl.class);
     }
 
     /**

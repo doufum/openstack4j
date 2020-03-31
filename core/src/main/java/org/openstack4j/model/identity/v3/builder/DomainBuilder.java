@@ -1,9 +1,9 @@
 package org.openstack4j.model.identity.v3.builder;
 
-import java.util.Map;
-
 import org.openstack4j.common.Buildable.Builder;
 import org.openstack4j.model.identity.v3.Domain;
+
+import java.util.Map;
 
 /**
  * A Builder which creates a identity v3 domain.
@@ -26,6 +26,8 @@ public interface DomainBuilder extends Builder<DomainBuilder, Domain> {
      * @see Domain#getName()
      */
     DomainBuilder name(String name);
+
+    DomainBuilder options(Map<String, String> options);
 
     /**
      * @see Domain#getLinks()

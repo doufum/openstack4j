@@ -1,14 +1,14 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.compute.FloatingIP;
 import org.openstack4j.model.compute.builder.FloatingIPBuilder;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.List;
 
 /**
  * The Class NovaFloatingIP.
@@ -17,6 +17,7 @@ import com.google.common.base.MoreObjects;
  * @author Nathan Anderson
  */
 @JsonRootName("floating_ip")
+@Deprecated
 public class NovaFloatingIP implements FloatingIP {
 
   private static final long serialVersionUID = -4441740897994315920L;
@@ -109,6 +110,7 @@ public class NovaFloatingIP implements FloatingIP {
    *
    * @author Nathan Anderson
    */
+  @Deprecated
   public static class NovaFloatingIPs extends ListResult<NovaFloatingIP> {
 
     private static final long serialVersionUID = 1L;
@@ -131,6 +133,7 @@ public class NovaFloatingIP implements FloatingIP {
    *
    * @author Nathan Anderson
    */
+  @Deprecated
   public static class FloatingIPConcreteBuilder implements FloatingIPBuilder {
 
     NovaFloatingIP m = null;

@@ -1,8 +1,15 @@
 package org.openstack4j.connectors.httpclient;
 
-import com.google.common.net.MediaType;
 import org.apache.http.client.entity.EntityBuilder;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.InputStreamEntity;
@@ -79,7 +86,7 @@ public final class HttpCommand<R> {
         default:
             throw new IllegalArgumentException("Unsupported http method: " + request.getMethod());
         } 
-        clientReq.setHeader("Accept", MediaType.JSON_UTF_8.toString());
+        clientReq.setHeader("Accept", "application/json");
         populateHeaders(request);
     }
 

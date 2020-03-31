@@ -1,14 +1,14 @@
 package org.openstack4j.openstack.compute.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.api.compute.HostService;
 import org.openstack4j.model.compute.HostResource;
 import org.openstack4j.openstack.compute.domain.NovaHost;
 import org.openstack4j.openstack.compute.domain.NovaHostResource.NovaHostResources;
+
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * OS Host Service
@@ -16,6 +16,7 @@ import org.openstack4j.openstack.compute.domain.NovaHostResource.NovaHostResourc
  * @author Qin An
  *
  */
+@Deprecated
 public class HostServiceImpl extends BaseComputeServices implements HostService {
 
     @Override

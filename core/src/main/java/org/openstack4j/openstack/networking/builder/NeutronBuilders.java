@@ -34,6 +34,7 @@ import org.openstack4j.model.network.ext.builder.MemberBuilder;
 import org.openstack4j.model.network.ext.builder.MemberUpdateBuilder;
 import org.openstack4j.model.network.ext.builder.MemberV2Builder;
 import org.openstack4j.model.network.ext.builder.MemberV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.NetworkIPAvailabilityBuilder;
 import org.openstack4j.model.network.ext.builder.SessionPersistenceBuilder;
 import org.openstack4j.model.network.ext.builder.VipBuilder;
 import org.openstack4j.model.network.ext.builder.VipUpdateBuilder;
@@ -74,6 +75,7 @@ import org.openstack4j.openstack.networking.domain.ext.NeutronMember;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberUpdate;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberV2;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberV2Update;
+import org.openstack4j.openstack.networking.domain.ext.NeutronNetworkIPAvailability;
 import org.openstack4j.openstack.networking.domain.ext.NeutronSessionPersistence;
 import org.openstack4j.openstack.networking.domain.ext.NeutronVip;
 import org.openstack4j.openstack.networking.domain.ext.NeutronVipUpdate;
@@ -286,5 +288,10 @@ public class NeutronBuilders implements NetworkBuilders {
     @Override
     public ListenerV2UpdateBuilder listenerV2Update(){
         return NeutronListenerV2Update.builder();
+    }
+
+    @Override
+    public NetworkIPAvailabilityBuilder networkIPAvailability(){
+        return NeutronNetworkIPAvailability.builder();
     }
 }

@@ -103,6 +103,7 @@ import org.openstack4j.model.network.ext.builder.MemberBuilder;
 import org.openstack4j.model.network.ext.builder.MemberUpdateBuilder;
 import org.openstack4j.model.network.ext.builder.MemberV2Builder;
 import org.openstack4j.model.network.ext.builder.MemberV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.NetworkIPAvailabilityBuilder;
 import org.openstack4j.model.network.ext.builder.PortChainBuilder;
 import org.openstack4j.model.network.ext.builder.PortPairBuilder;
 import org.openstack4j.model.network.ext.builder.PortPairGroupBuilder;
@@ -233,6 +234,7 @@ import org.openstack4j.openstack.networking.domain.ext.NeutronMember;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberUpdate;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberV2;
 import org.openstack4j.openstack.networking.domain.ext.NeutronMemberV2Update;
+import org.openstack4j.openstack.networking.domain.ext.NeutronNetworkIPAvailability;
 import org.openstack4j.openstack.networking.domain.ext.NeutronPortChain;
 import org.openstack4j.openstack.networking.domain.ext.NeutronPortPair;
 import org.openstack4j.openstack.networking.domain.ext.NeutronPortPairGroup;
@@ -447,7 +449,9 @@ public class Builders {
      * The builder to create a Compute/Nova Floating IP
      *
      * @return the floating ip builder
+     * @deprecated @deprecated Since these APIs are only implemented for nova-network, they are deprecated. These will fail with a 404 starting from microversion 2.36. They were removed in the 18.0.0 Rocky release.
      */
+    @Deprecated
     public static FloatingIPBuilder floatingIP() {
         return NovaFloatingIP.builder();
     }
@@ -1046,10 +1050,7 @@ public class Builders {
     }
 
     /**
-     * The builder which creates network service policy for gbp
-     *
-     *
-     * @return
+     * The builder which creates network service policy for gbp.
      */
     public static NetworkServicePolicyBuilder networkServicePolicy() {
         return GbpNetworkServicePolicy.builder();
@@ -1439,6 +1440,15 @@ public class Builders {
      * @return the recordset builder
      */
     public static RecordsetBuilder recordset() { return DesignateRecordset.builder(); }
+
+    /**
+     * The builder to create NetworkIPAvailability entities
+     *
+     * @return the NetworkIPAvailability builder
+     */
+    public static NetworkIPAvailabilityBuilder networkIPAvailability() {
+        return NeutronNetworkIPAvailability.builder();
+    }
 
     public static WorkflowBuilders workflow() {
         return new MistralBuilders();

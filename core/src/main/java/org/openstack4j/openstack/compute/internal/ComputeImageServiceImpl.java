@@ -1,10 +1,5 @@
 package org.openstack4j.openstack.compute.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.api.compute.ComputeImageService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.Image;
@@ -12,11 +7,17 @@ import org.openstack4j.openstack.compute.domain.MetaDataWrapper;
 import org.openstack4j.openstack.compute.domain.NovaImage;
 import org.openstack4j.openstack.compute.domain.NovaImage.NovaImages;
 
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Provides access to Compute Images.
  *
  * @author Jeremy Unruh
  */
+@Deprecated
 public class ComputeImageServiceImpl extends BaseComputeServices implements ComputeImageService {
 
 	/**

@@ -2,6 +2,7 @@ package org.openstack4j.connectors.http;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.net.MediaType;
+
 import org.openstack4j.core.transport.Config;
 import org.openstack4j.core.transport.HttpRequest;
 import org.openstack4j.core.transport.HttpResponse;
@@ -15,8 +16,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.Proxy;
 import java.net.Proxy.Type;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -96,12 +103,9 @@ public final class HttpCommand<R> {
                 out.write(requestBody);
                 out.flush();
             }
-            byte[] data = null;
 
             int status = connection.getResponseCode();
-            if (status >= 200 && status < 300) {
-                data = ByteStreams.toByteArray(connection.getInputStream());
-            }
+            byte[] data = getResponseBytes();
             return HttpResponseImpl.wrap(connection.getHeaderFields(),
                     status, connection.getResponseMessage(),
                     data);
@@ -114,6 +118,20 @@ public final class HttpCommand<R> {
         }
     }
 
+    // https://stackoverflow.com/a/613484/2091470
+    private byte[] getResponseBytes() throws IOException {
+        InputStream is;
+        try {
+            is = connection.getInputStream();
+        } catch (IOException ex) {
+            is = connection.getErrorStream();
+        }
+
+        if (is != null) {
+            return ByteStreams.toByteArray(is);
+        }
+        return null;
+    }
     /**
      * @see <a href= "https://java.net/jira/browse/JERSEY-639">https://java.net/jira/browse/JERSEY-639</a>
      *

@@ -1,9 +1,9 @@
 package org.openstack4j.api.identity.v3;
 
-import java.util.List;
-
 import org.openstack4j.common.RestService;
 import org.openstack4j.model.common.Extension;
+
+import java.util.List;
 
 /**
  * Identity v3 Service Operations API
@@ -85,7 +85,9 @@ public interface IdentityService extends RestService {
      * List extensions currently available on the OpenStack instance
      *
      * @return List of extensions
+     * @deprecated https://docs.openstack.org/api-ref/compute/?expanded=#extensions-extensions-deprecated
      */
+    @Deprecated
     List<? extends Extension> listExtensions();
 
 }

@@ -1,17 +1,18 @@
 package org.openstack4j.api.compute.ext;
 
-import java.util.List;
-
 import org.openstack4j.common.RestService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.ext.DNSEntry;
 import org.openstack4j.model.compute.ext.DNSRecordType;
+
+import java.util.List;
 
 /**
  * A Service which handles DNS Entries for the Floating IP DNS Extension
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public interface FloatingIPDNSEntryService extends RestService {
 
     /**

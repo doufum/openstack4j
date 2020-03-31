@@ -56,7 +56,7 @@ public interface RouterService extends RestService {
 	Router create(Router router);
 	
 	/**
-	 * Updates a Router.  Based on the OpenStack API documentation only [ name, admin_state_up, description and external_gateway_info ] will be updated.
+	 * Updates a Router.  Based on the OpenStack API documentation only [ name, admin_state_up and external_gateway_info ] will be updated.
 	 * 
 	 * NOTE: The router identifier must be set in the {@code router}.  See {@link Router#setId(String)}
 	 * @param router the router to update
