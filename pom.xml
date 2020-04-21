@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pacesys</groupId>
     <artifactId>openstack4j-parent</artifactId>
-    <version>3.2.2.20200331-RC</version>
+    <version>3.2.2.20200421-RC</version>
     <name>OpenStack4j Parent</name>
     <description>OpenStack Java API</description>
     <url>http://github.com/ContainX/openstack4j/</url>
@@ -258,24 +258,6 @@
         </pluginManagement>
     </build>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <configuration>
-                    <author>true</author>
-                    <protected>true</protected>
-                    <excludePackageNames>*.internal</excludePackageNames>
-                    <reportOutputDirectory>docs</reportOutputDirectory>
-                    <destDir>javadoc</destDir>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -326,19 +308,6 @@
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>
