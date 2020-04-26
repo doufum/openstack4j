@@ -1,14 +1,14 @@
 package org.openstack4j.openstack.networking.domain;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.network.SecurityGroupRule;
 import org.openstack4j.model.network.builder.NetSecurityGroupRuleBuilder;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.List;
 
 /**
  * An OpenStack Neutron Security Group Rule model.
@@ -49,6 +49,9 @@ public class NeutronSecurityGroupRule implements SecurityGroupRule {
 
     @JsonProperty("remote_group_id")
     private String remoteGroupId;
+
+    @JsonProperty("description")
+    private String description;
 
     /**
      * {@inheritDoc}
@@ -140,6 +143,11 @@ public class NeutronSecurityGroupRule implements SecurityGroupRule {
     @Override
     public String getSecurityGroupId() {
         return this.securityGroupId;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
     }
 
     /**
@@ -349,6 +357,12 @@ public class NeutronSecurityGroupRule implements SecurityGroupRule {
         @Override
         public NetSecurityGroupRuleBuilder remoteIpPrefix(String prefix) {
             r.remoteIpPrefix = prefix;
+            return this;
+        }
+
+        @Override
+        public NetSecurityGroupRuleBuilder description(String description) {
+            r.description = description;
             return this;
         }
     }
