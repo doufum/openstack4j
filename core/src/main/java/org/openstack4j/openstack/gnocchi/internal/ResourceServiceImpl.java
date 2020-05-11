@@ -36,6 +36,28 @@ public class ResourceServiceImpl extends BaseGnocchiServices implements Resource
     }
 
     @Override
+    public Object[][] listMetric(String resourceType, String resourceId, String metricType, Date start, Date end,
+                                 Integer granularity) {
+        checkNotNull(resourceId);
+        checkNotNull(start);
+        checkNotNull(end);
+        checkNotNull(granularity);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startInstant = LocalDateTime.ofInstant(start.toInstant(), ZoneId.systemDefault());
+        LocalDateTime endInstant = LocalDateTime.ofInstant(end.toInstant(), ZoneId.systemDefault());
+
+        String startStr = sdf.format(Date.from(startInstant.toInstant(ZoneOffset.ofHours(16))));
+        String endStr = sdf.format(Date.from(endInstant.toInstant(ZoneOffset.ofHours(16))));
+
+        return get(Object[][].class,
+                   uri("/v1/resource/%s/%s/metric/%s/measures?start=%s&stop=%s&granularity=%s", resourceType,
+                       resourceId, metricType,
+                       startStr, endStr, granularity)).header(
+                ClientConstants.HEADER_ACCEPT, "*/*").execute();
+    }
+
+    @Override
     public List<? extends Resource> listResource(String resourceType, String json) {
         checkNotNull(json);
         GnocchiResource[] resources = post(GnocchiResource[].class,
