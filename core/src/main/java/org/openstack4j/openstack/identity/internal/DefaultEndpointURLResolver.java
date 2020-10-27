@@ -1,10 +1,5 @@
 package org.openstack4j.openstack.identity.internal;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.concurrent.ConcurrentHashMap;
 import com.google.common.base.Optional;
 import com.google.common.collect.SortedSetMultimap;
 
@@ -12,12 +7,19 @@ import org.openstack4j.api.exceptions.RegionEndpointNotFoundException;
 import org.openstack4j.api.identity.EndpointURLResolver;
 import org.openstack4j.api.types.Facing;
 import org.openstack4j.api.types.ServiceType;
-import org.openstack4j.model.identity.v3.Token;
+import org.openstack4j.model.identity.URLResolverParams;
 import org.openstack4j.model.identity.v2.Access;
 import org.openstack4j.model.identity.v2.Endpoint;
-import org.openstack4j.model.identity.URLResolverParams;
+import org.openstack4j.model.identity.v3.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Resolves an Endpoint URL based on the Service Type and Facing perspective
@@ -131,6 +133,7 @@ public class DefaultEndpointURLResolver implements EndpointURLResolver {
             }
         }
 
+        token.getCatalog().sort(Comparator.comparing(org.openstack4j.model.identity.v3.Service::getName).reversed());
         for (org.openstack4j.model.identity.v3.Service service : token.getCatalog()) {
             if (p.type == ServiceType.forName(service.getType()) || p.type == ServiceType.forName(service.getName())) {
                 if (p.perspective == null) {

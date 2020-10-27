@@ -7,7 +7,7 @@ public enum ServiceType {
 	APP_CATALOG("murano", "application-catalog"),
 	COMPUTE("nova", "compute"),
 	IMAGE("glance", "image"),
-	BLOCK_STORAGE("cinderv3", "volumev3"),
+	BLOCK_STORAGE("cinder", "volume"),
 	OBJECT_STORAGE("object-store", "object-store"),
 	NETWORK("neutron", "network"),
 	OCTAVIA("octavia", "load-balancer"),
@@ -69,4 +69,8 @@ public enum ServiceType {
         }
         return ServiceType.UNKNOWN;
     }
+
+	public static void main(String[] args) {
+		System.out.println(ServiceType.BLOCK_STORAGE.servicePattern);
+	}
 }
