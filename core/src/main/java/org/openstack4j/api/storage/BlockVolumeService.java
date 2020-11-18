@@ -199,4 +199,13 @@ public interface BlockVolumeService extends RestService {
 	 * @return the action response
 	 */
 	ActionResponse bootable(String volumeId, Boolean bootable);
+
+	/**
+	 * Revert a volume to its latest snapshot
+	 *
+	 * @param volumeId the volume id
+	 * @param snapshotId The UUID of the snapshot
+	 * @return the action response
+	 */
+	ActionResponse revertFromSnapshot(String volumeId, String snapshotId);
 }

@@ -23,6 +23,7 @@ import org.openstack4j.openstack.storage.block.domain.ForceDeleteAction;
 import org.openstack4j.openstack.storage.block.domain.ForceDetachAction;
 import org.openstack4j.openstack.storage.block.domain.ForceDetachConnector;
 import org.openstack4j.openstack.storage.block.domain.ResetStatusAction;
+import org.openstack4j.openstack.storage.block.domain.RevertSnapshotAction;
 import org.openstack4j.openstack.storage.block.domain.SetBootableAction;
 import org.openstack4j.openstack.storage.block.domain.UpdateReadOnlyFlagAction;
 
@@ -283,5 +284,13 @@ public class BlockVolumeServiceImpl extends BaseBlockStorageServices implements 
 		DetachAction detach = new DetachAction(attachmentId);
 		return post(ActionResponse.class, uri("/volumes/%s/action", volumeId)).entity(detach).execute();
 	}
-    
+
+    @Override
+    public ActionResponse revertFromSnapshot(String volumeId, String snapshotId) {
+        checkNotNull(volumeId);
+        checkNotNull(snapshotId);
+        RevertSnapshotAction revertSnapshotAction = new RevertSnapshotAction(snapshotId);
+        return post(ActionResponse.class, uri("/volumes/%s/action", volumeId)).entity(revertSnapshotAction).execute();
+    }
+
 }
