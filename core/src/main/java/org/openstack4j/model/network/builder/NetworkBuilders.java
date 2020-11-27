@@ -1,6 +1,36 @@
 package org.openstack4j.model.network.builder;
 
-import org.openstack4j.model.network.ext.builder.*;
+import org.openstack4j.model.network.ext.builder.FirewallBuilder;
+import org.openstack4j.model.network.ext.builder.FirewallPolicyBuilder;
+import org.openstack4j.model.network.ext.builder.FirewallPolicyUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.FirewallRuleBuilder;
+import org.openstack4j.model.network.ext.builder.FirewallRuleUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.FirewallUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.HealthMonitorAssociateBuilder;
+import org.openstack4j.model.network.ext.builder.HealthMonitorBuilder;
+import org.openstack4j.model.network.ext.builder.HealthMonitorUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.HealthMonitorV2Builder;
+import org.openstack4j.model.network.ext.builder.HealthMonitorV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.LbPoolBuilder;
+import org.openstack4j.model.network.ext.builder.LbPoolUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.LbPoolV2Builder;
+import org.openstack4j.model.network.ext.builder.LbPoolV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.ListenerV2Builder;
+import org.openstack4j.model.network.ext.builder.ListenerV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.LoadBalancerV2Builder;
+import org.openstack4j.model.network.ext.builder.LoadBalancerV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.MemberBuilder;
+import org.openstack4j.model.network.ext.builder.MemberUpdateBuilder;
+import org.openstack4j.model.network.ext.builder.MemberV2Builder;
+import org.openstack4j.model.network.ext.builder.MemberV2UpdateBuilder;
+import org.openstack4j.model.network.ext.builder.NetworkIPAvailabilityBuilder;
+import org.openstack4j.model.network.ext.builder.SessionPersistenceBuilder;
+import org.openstack4j.model.network.ext.builder.VipBuilder;
+import org.openstack4j.model.network.ext.builder.VipUpdateBuilder;
+import org.openstack4j.model.network.qos.builder.NetQosBandwidthLimitRuleBuilder;
+import org.openstack4j.model.network.qos.builder.NetQosDscpMarkingRuleBuilder;
+import org.openstack4j.model.network.qos.builder.NetQosMinimumBandwidthRuleBuilder;
+import org.openstack4j.model.network.qos.builder.NetQosPolicyBuilder;
 
 /**
  * The Network builders
@@ -64,6 +94,34 @@ public interface NetworkBuilders {
      * @return the floating ip builder
      */
     public NetFloatingIPBuilder netFloatingIP();
+
+    /**
+     * The builder to create a Neutron QoS Policy
+     *
+     * @return the QoS Policy builder
+     */
+    public NetQosPolicyBuilder netQosPolicy();
+
+    /**
+     * The builder to create a Neutron QoS Bandwidth Limit Rule
+     *
+     * @return the QoS Policy builder
+     */
+    public NetQosBandwidthLimitRuleBuilder netQosBandwidthLimitRule();
+
+    /**
+     * The builder to create a Neutron QoS DSCP Marking Rule
+     *
+     * @return the QoS Policy builder
+     */
+    public NetQosDscpMarkingRuleBuilder netQosDscpMarkingRule();
+
+    /**
+     * The builder to create a Neutron QoS Minimum Bandwidth Rule
+     *
+     * @return the QoS Policy builder
+     */
+    public NetQosMinimumBandwidthRuleBuilder netQosMinimumBandwidthRule();
 
     /**
      * The builder to create NetQuota entities
@@ -252,4 +310,11 @@ public interface NetworkBuilders {
      * @return HealthMonitorV2UpdateBuilder
      */
     public HealthMonitorV2UpdateBuilder healthMonitorV2Update();
+
+    /**
+     * The builder to create a network IP availability entity
+     *
+     * @return the NetworkIPAvailability builder
+     */
+    public NetworkIPAvailabilityBuilder networkIPAvailability();
 }

@@ -87,6 +87,13 @@ public interface Hypervisor extends ModelEntity {
     int getVirtualCPU();
 
     /**
+     * Gets CPU allocation ratio.
+     *
+     * @return CPU allocation ratio
+     */
+    float getCpuAllocationRatio();
+
+    /**
      * Gets the virtual used cpu.
      *
      * @return the virtual used cpu

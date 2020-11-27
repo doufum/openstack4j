@@ -1,9 +1,5 @@
 package org.openstack4j.openstack.compute.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
 import org.openstack4j.api.compute.ComputeFloatingIPService;
 import org.openstack4j.core.transport.ExecutionOptions;
 import org.openstack4j.core.transport.propagation.PropagateOnStatus;
@@ -17,11 +13,16 @@ import org.openstack4j.openstack.compute.domain.NovaFloatingIPPools;
 import org.openstack4j.openstack.compute.domain.actions.FloatingIpActions;
 import org.openstack4j.openstack.compute.functions.ToActionResponseFunction;
 
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * OpenStack Floating-IP API Implementation
  *
  * @author Nathan Anderson
  */
+@Deprecated
 public class ComputeFloatingIPServiceImpl extends BaseComputeServices implements ComputeFloatingIPService {
 
     /**

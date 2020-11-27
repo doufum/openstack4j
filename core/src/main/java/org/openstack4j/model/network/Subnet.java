@@ -1,10 +1,10 @@
 package org.openstack4j.model.network;
 
-import java.util.List;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.common.Resource;
 import org.openstack4j.model.network.builder.SubnetBuilder;
+
+import java.util.List;
 
 /**
  * A Subnet is a network with Pools and network based settings
@@ -63,5 +63,17 @@ public interface Subnet extends Resource, Buildable<SubnetBuilder> {
 	/**
 	 * @return the IPv6 router advertisement specifies whether the networking service should transmit ICMPv6 packets, for a subnet
 	 */
-	Ipv6RaMode getIpv6RaMode();		
+	Ipv6RaMode getIpv6RaMode();
+
+
+	/**
+	 * @return The prefix length to use for subnet allocation from a subnet pool. If not specified, the default_prefixlen value of the subnet pool will be used.
+	 */
+	Integer getPrefixlen();
+
+
+	/**
+	 * @return The ID of the subnet pool associated with the subnet.
+	 */
+	String getSubnetpoolId();
 }

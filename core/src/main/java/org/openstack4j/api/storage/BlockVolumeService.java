@@ -1,14 +1,14 @@
 package org.openstack4j.api.storage;
 
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.common.RestService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.storage.block.Volume;
 import org.openstack4j.model.storage.block.VolumeType;
 import org.openstack4j.model.storage.block.VolumeUploadImage;
 import org.openstack4j.model.storage.block.options.UploadImageData;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Manages Volumes and Volume Type based operations against Block Storage (Cinder)
@@ -55,6 +55,13 @@ public interface BlockVolumeService extends RestService {
 	 * @return 
 	*/
 	List<? extends Volume> list(Map<String, String> filteringParams);
+
+	/**
+	 * Lists all Block Storage volumes for all tenants.
+	 *
+	 * @return List of all Volumes
+	 */
+	List<? extends Volume> listAll();
 
 	/**
 	 * Gets a Block Storage volume by ID
@@ -192,4 +199,13 @@ public interface BlockVolumeService extends RestService {
 	 * @return the action response
 	 */
 	ActionResponse bootable(String volumeId, Boolean bootable);
+
+	/**
+	 * Revert a volume to its latest snapshot
+	 *
+	 * @param volumeId the volume id
+	 * @param snapshotId The UUID of the snapshot
+	 * @return the action response
+	 */
+	ActionResponse revertFromSnapshot(String volumeId, String snapshotId);
 }

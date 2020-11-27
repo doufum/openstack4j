@@ -2,6 +2,7 @@ package org.openstack4j.core.transport;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
+
 import org.openstack4j.api.EndpointTokenProvider;
 import org.openstack4j.api.types.ServiceType;
 import org.openstack4j.model.ModelEntity;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.openstack4j.core.transport.ClientConstants.HEADER_CONTENT_TYPE;
 
 /**
  * A Request Delegate which aids in building the request that is compatible with the OpenStack Rest API. The request is used to encoding as well as keeping reference to 
@@ -300,6 +303,10 @@ public class HttpRequest<R> {
 		 * @return the request builder
 		 */
 		public RequestBuilder<R> header(String name, Object value) {
+			// fix-bug: if header key is Content-Type, then set it to request.contentType
+			if (HEADER_CONTENT_TYPE.equals(name)) {
+				request.contentType = value.toString();
+			}
 			request.getHeaders().put(name, value);
 			return this;
 		}

@@ -29,6 +29,9 @@ public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
 	@JsonProperty("volume_id")
 	public String volumeId;
 
+	@JsonProperty("volume_type")
+	public String volumeType ;
+
     @JsonInclude(Include.NON_NULL)
     @JsonProperty("disk_bus")
     public String diskBus;
@@ -102,7 +105,13 @@ public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
 		    create.volumeId = volumeId;
 		    return this;
 		}
-		
+
+		@Override
+		public BlockDeviceMappingBuilder volumeType(String volumeType) {
+		    create.volumeType = volumeType;
+		    return this;
+		}
+
 		@Override
         public BlockDeviceMappingBuilder volumeSize(Integer volumeSize) {
             create.volume_size = volumeSize;

@@ -53,7 +53,7 @@ public interface SenlinClusterService {
 	ActionResponse delete(String clusterID);
 
 	/**
-	 * <code>PATCH /v1/clusters/​{cluster_id}​</code><br \>
+	 * <code>PATCH /v1/clusters/{cluster_id}</code><br \>
 	 *
 	 * Update a {@link Cluster} out of a {@link ClusterCreate} object
 	 *

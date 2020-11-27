@@ -1,9 +1,13 @@
 package org.openstack4j.api.manila;
 
 import org.openstack4j.common.RestService;
-import org.openstack4j.model.common.Extension;
 import org.openstack4j.model.common.ActionResponse;
-import org.openstack4j.model.manila.*;
+import org.openstack4j.model.common.Extension;
+import org.openstack4j.model.manila.AvailabilityZone;
+import org.openstack4j.model.manila.Limits;
+import org.openstack4j.model.manila.Service;
+import org.openstack4j.model.manila.Share;
+import org.openstack4j.model.manila.ShareManage;
 import org.openstack4j.openstack.manila.domain.ManilaService;
 
 import java.util.List;
@@ -16,7 +20,9 @@ import java.util.List;
 public interface ShareService extends RestService {
     /**
      * @return a list of available Shared File Systems API extensions
+     * @deprecated https://docs.openstack.org/api-ref/compute/?expanded=#extensions-extensions-deprecated
      */
+    @Deprecated
     List<? extends Extension> listExtensions();
 
     /**

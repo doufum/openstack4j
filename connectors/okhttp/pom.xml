@@ -2,7 +2,7 @@
     <parent>
         <groupId>org.pacesys.openstack4j.connectors</groupId>
         <artifactId>openstack4j-connectors</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.2.2.20201118-RC</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>openstack4j-okhttp</artifactId>
@@ -18,6 +18,11 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
             <version>${okhttp.version}</version>
         </dependency>
     </dependencies>

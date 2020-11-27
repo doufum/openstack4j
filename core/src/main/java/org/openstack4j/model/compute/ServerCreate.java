@@ -1,12 +1,13 @@
 package org.openstack4j.model.compute;
 
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.compute.Server.DiskConfig;
 import org.openstack4j.model.compute.builder.ServerCreateBuilder;
+import org.openstack4j.openstack.compute.domain.NovaBlockDeviceMappingCreate;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Model used to create a new VM/Server 
@@ -112,7 +113,14 @@ public interface ServerCreate extends ModelEntity, Buildable<ServerCreateBuilder
 	 * @return the security groups
 	 */
 	List<? extends SecurityGroup> getSecurityGroups();
-	
+
+	/**
+	 * Gets the block device mapping
+	 *
+	 * @return {@link List<NovaBlockDeviceMappingCreate>}
+	 */
+	List<BlockDeviceMappingCreate> getBlockDeviceMapping();
+
 	/**
 	 * Gets the availability zone.
 	 *

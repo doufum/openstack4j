@@ -55,4 +55,34 @@ public interface MemberV2Builder extends Buildable.Builder<MemberV2Builder, Memb
      * @return MemberV2Builder
      */
     MemberV2Builder adminStateUp(boolean adminStateUp);
+
+    /**
+     * Optional
+     *
+     * @param name
+     *            Human-readable name of the resource.
+     * @return MemberV2Builder
+     */
+    MemberV2Builder name(String name);
+
+    /**
+     * Optional
+     *
+     * @param monitorAddress
+     *            An alternate IP address used for health monitoring a backend member.
+     *            Default is null which monitors the member address.
+     * @return MemberV2Builder
+     */
+    MemberV2Builder monitorAddress(String monitorAddress);
+
+    /**
+     * Optional
+     *
+     * @param monitorPort
+     *            An alternate protocol port used for health monitoring a backend member.
+     *            Default is null which monitors the member protocol_port.
+     * @return MemberV2Builder
+     */
+    MemberV2Builder monitorPort(Integer monitorPort);
+
 }

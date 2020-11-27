@@ -1,17 +1,18 @@
 package org.openstack4j.openstack.identity.v3.domain;
 
-import java.util.List;
-import java.util.Map;
-
-import org.openstack4j.model.identity.v3.Domain;
-import org.openstack4j.model.identity.v3.builder.DomainBuilder;
-import org.openstack4j.openstack.common.ListResult;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.collect.Maps;
+
+import org.openstack4j.model.identity.v3.Domain;
+import org.openstack4j.model.identity.v3.builder.DomainBuilder;
+import org.openstack4j.openstack.common.ListResult;
+
+import java.util.List;
+import java.util.Map;
 
 @JsonRootName("domain")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -23,6 +24,7 @@ public class KeystoneDomain implements Domain {
     @JsonProperty
     private String name;
     private String description;
+    private Map<String, String> options = Maps.newHashMap();
     private Map<String, String> links;
     private boolean enabled;
 
@@ -62,6 +64,10 @@ public class KeystoneDomain implements Domain {
         return name;
     }
 
+    @Override
+    public Map<String, String> getOptions() {
+        return options;
+    }
     /**
      * {@inheritDoc}
      */
@@ -142,6 +148,12 @@ public class KeystoneDomain implements Domain {
         @Override
         public DomainBuilder name(String name) {
             model.name = name;
+            return this;
+        }
+
+        @Override
+        public DomainBuilder options(Map<String, String> options) {
+            model.options = options;
             return this;
         }
 

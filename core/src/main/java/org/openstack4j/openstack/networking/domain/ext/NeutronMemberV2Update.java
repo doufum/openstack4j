@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.base.MoreObjects;
+
 import org.openstack4j.model.network.ext.MemberV2Update;
 import org.openstack4j.model.network.ext.builder.MemberV2UpdateBuilder;
 
@@ -26,6 +27,8 @@ public class NeutronMemberV2Update implements MemberV2Update {
     @JsonProperty("admin_state_up")
     private boolean adminStateUp = true;
 
+    private String name;
+
     @Override
     public boolean isAdminStateUp(){
         return adminStateUp;
@@ -37,10 +40,16 @@ public class NeutronMemberV2Update implements MemberV2Update {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("weight", weight)
                 .add("adminStateUp",adminStateUp)
+                .add("name",name)
                 .toString();
     }
 
@@ -87,6 +96,12 @@ public class NeutronMemberV2Update implements MemberV2Update {
         @Override
         public MemberV2UpdateBuilder weight(Integer weight){
             m.weight = weight;
+            return this;
+        }
+
+        @Override
+        public MemberV2UpdateBuilder name(String name) {
+            m.name = name;
             return this;
         }
     }

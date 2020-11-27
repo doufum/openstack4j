@@ -1,11 +1,11 @@
 package org.openstack4j.model.identity.v3;
 
-import java.util.List;
-import java.util.Map;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.identity.v3.builder.ProjectBuilder;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Project Model class use to group/isolate resources and/or identity objects
@@ -79,6 +79,11 @@ public interface Project extends ModelEntity, Buildable<ProjectBuilder> {
      */
     String getExtra(String key);
     
+    /**
+     * Project options.
+     */
+    Map<String, String> getOptions();
+
     /**
      * 
      * @return list of tags

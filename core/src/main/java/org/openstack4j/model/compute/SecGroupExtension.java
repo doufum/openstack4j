@@ -1,23 +1,25 @@
 package org.openstack4j.model.compute;
 
-import java.util.List;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.common.Link;
 import org.openstack4j.model.compute.builder.SecurityGroupRuleBuilder;
+
+import java.util.List;
 
 /**
  * A Security Group which is defined the the (os-security-groups) extension
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public interface SecGroupExtension extends ModelEntity{
 
 	/**
 	 * Security Group Rule
 	 */
-	public interface Rule extends ModelEntity, Buildable<SecurityGroupRuleBuilder> 
+	@Deprecated
+	public interface Rule extends ModelEntity, Buildable<SecurityGroupRuleBuilder>
 	{
 		
 		/**
@@ -66,7 +68,8 @@ public interface SecGroupExtension extends ModelEntity{
 		 * Rule Group
 		 * 
 		 */
-		public interface Group 
+		@Deprecated
+		public interface Group
 		{
 			 
  			/**
@@ -85,6 +88,7 @@ public interface SecGroupExtension extends ModelEntity{
 		/**
 		 * Rule IP Range
 		 */
+		@Deprecated
 		public interface IpRange {
 			
 			/**

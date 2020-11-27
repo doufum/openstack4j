@@ -1,12 +1,5 @@
 package org.openstack4j.connectors.okhttp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.Headers;
-import okhttp3.Response;
 import org.openstack4j.api.exceptions.ClientResponseException;
 import org.openstack4j.core.transport.ClientConstants;
 import org.openstack4j.core.transport.ExecutionOptions;
@@ -16,7 +9,18 @@ import org.openstack4j.core.transport.ObjectMapperSingleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
+import okhttp3.Headers;
+import okhttp3.Response;
+
+
+/**
+ * The type Http response.
+ */
 public class HttpResponseImpl implements HttpResponse {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpResponseImpl.class);
@@ -52,6 +56,7 @@ public class HttpResponseImpl implements HttpResponse {
      * @param returnType the return type
      * @return the entity
      */
+    @Override
     public <T> T getEntity(Class<T> returnType) {
         return getEntity(returnType, null);
     }
@@ -74,6 +79,7 @@ public class HttpResponseImpl implements HttpResponse {
      *
      * @return the status code
      */
+    @Override
     public int getStatus() {
         return response.code();
     }
@@ -89,6 +95,7 @@ public class HttpResponseImpl implements HttpResponse {
     /**
      * @return the input stream
      */
+    @Override
     public InputStream getInputStream() {
         return response.body().byteStream();
     }
@@ -99,6 +106,7 @@ public class HttpResponseImpl implements HttpResponse {
      * @param name the name of the header to query for
      * @return the header as a String or null if not found
      */
+    @Override
     public String header(String name) {
         return response.header(name);
     }
@@ -106,6 +114,7 @@ public class HttpResponseImpl implements HttpResponse {
     /**
      * @return the a Map of Header Name to Header Value
      */
+    @Override
     public Map<String, String> headers() {
         Map<String, String> retHeaders = new HashMap<String, String>();
         Headers headers =  response.headers();

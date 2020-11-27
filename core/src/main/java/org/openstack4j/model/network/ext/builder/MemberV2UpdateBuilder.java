@@ -23,4 +23,11 @@ public interface MemberV2UpdateBuilder extends Buildable.Builder<MemberV2UpdateB
      * @return MemberUpdateBuilder
      */
     public MemberV2UpdateBuilder weight(Integer weight);
+
+    /**
+     * @param name
+     *            Human-readable name of the resource.
+     * @return MemberUpdateBuilder
+     */
+    public MemberV2UpdateBuilder name(String name);
 }

@@ -1,9 +1,5 @@
 package org.openstack4j.openstack.compute.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
 import org.openstack4j.api.compute.ComputeSecurityGroupService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.SecGroupExtension;
@@ -12,6 +8,10 @@ import org.openstack4j.openstack.compute.domain.NovaSecGroupExtension;
 import org.openstack4j.openstack.compute.domain.NovaSecGroupExtension.SecurityGroupRule;
 import org.openstack4j.openstack.compute.domain.NovaSecGroupExtension.SecurityGroups;
 
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Provides operations against the Security Group extension in OpenStack
  * 
@@ -19,6 +19,7 @@ import org.openstack4j.openstack.compute.domain.NovaSecGroupExtension.SecurityGr
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public class ComputeSecurityGroupServiceImpl extends BaseComputeServices implements ComputeSecurityGroupService {
 
 	/**

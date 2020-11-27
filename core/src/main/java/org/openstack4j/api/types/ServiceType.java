@@ -25,7 +25,8 @@ public enum ServiceType {
   	MAGNUM("magnum", "container"),
 	DNS("designate", "dns"),
 	WORKFLOW("mistral", "workflow"),
-	UNKNOWN("NA", "NA")
+	UNKNOWN("NA", "NA"),
+	GNOCCHI("gnocchi", "metric")
 	;
 
 	private final String serviceName;
@@ -68,4 +69,8 @@ public enum ServiceType {
         }
         return ServiceType.UNKNOWN;
     }
+
+	public static void main(String[] args) {
+		System.out.println(ServiceType.BLOCK_STORAGE.servicePattern);
+	}
 }

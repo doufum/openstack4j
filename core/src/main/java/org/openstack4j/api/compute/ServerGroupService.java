@@ -1,10 +1,11 @@
 package org.openstack4j.api.compute;
 
-import java.util.List;
-
 import org.openstack4j.common.RestService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.ServerGroup;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ServerGroupService extends RestService {
 	
@@ -14,6 +15,14 @@ public interface ServerGroupService extends RestService {
 	 * @return the list of serverGroups
 	 */
 	List<? extends ServerGroup> list();
+
+
+	/**
+	 * Lists serverGroups that are associated with the account making the request
+	 *
+	 * @return the list of serverGroups
+	 */
+	List<? extends ServerGroup> list(Map<String, ?> param);
 	
 	/**
 	 * Gets the serverGroup by id

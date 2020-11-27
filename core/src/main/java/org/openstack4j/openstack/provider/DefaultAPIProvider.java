@@ -1,6 +1,6 @@
 package org.openstack4j.openstack.provider;
 
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 import org.openstack4j.api.APIProvider;
 import org.openstack4j.api.artifact.ArtifactService;
@@ -107,11 +107,18 @@ import org.openstack4j.api.networking.ext.LoadBalancerService;
 import org.openstack4j.api.networking.ext.LoadBalancerV2Service;
 import org.openstack4j.api.networking.ext.MemberService;
 import org.openstack4j.api.networking.ext.NetQuotaService;
-import org.openstack4j.api.networking.ext.ServiceFunctionChainService;
-import org.openstack4j.api.networking.ext.PortPairService;
-import org.openstack4j.api.networking.ext.PortPairGroupService;
+import org.openstack4j.api.networking.ext.NetworkIPAvailabilityService;
 import org.openstack4j.api.networking.ext.PortChainService;
+import org.openstack4j.api.networking.ext.PortPairGroupService;
+import org.openstack4j.api.networking.ext.PortPairService;
+import org.openstack4j.api.networking.ext.ServiceFunctionChainService;
 import org.openstack4j.api.networking.ext.VipService;
+import org.openstack4j.api.networking.qos.NetQosBandwidthLimitRuleService;
+import org.openstack4j.api.networking.qos.NetQosDscpMarkingRuleService;
+import org.openstack4j.api.networking.qos.NetQosMinimumBandwidthRuleService;
+import org.openstack4j.api.networking.qos.NetQosPolicyService;
+import org.openstack4j.api.networking.qos.NetQosRuleTypeService;
+import org.openstack4j.api.networking.qos.NetQosService;
 import org.openstack4j.api.octavia.OctaviaService;
 import org.openstack4j.api.sahara.ClusterService;
 import org.openstack4j.api.sahara.ClusterTemplateService;
@@ -170,7 +177,15 @@ import org.openstack4j.api.trove.DatastoreService;
 import org.openstack4j.api.trove.InstanceFlavorService;
 import org.openstack4j.api.trove.InstanceService;
 import org.openstack4j.api.trove.TroveService;
-import org.openstack4j.api.workflow.*;
+import org.openstack4j.api.workflow.ActionDefinitionService;
+import org.openstack4j.api.workflow.ActionExecutionService;
+import org.openstack4j.api.workflow.CronTriggerService;
+import org.openstack4j.api.workflow.TaskExecutionService;
+import org.openstack4j.api.workflow.WorkbookDefinitionService;
+import org.openstack4j.api.workflow.WorkflowDefinitionService;
+import org.openstack4j.api.workflow.WorkflowEnvironmentService;
+import org.openstack4j.api.workflow.WorkflowExecutionService;
+import org.openstack4j.api.workflow.WorkflowService;
 import org.openstack4j.openstack.artifact.internal.ArtifactServiceImpl;
 import org.openstack4j.openstack.artifact.internal.ToscaTemplatesArtifactServiceImpl;
 import org.openstack4j.openstack.barbican.internal.BarbicanServiceImpl;
@@ -274,11 +289,18 @@ import org.openstack4j.openstack.networking.internal.ext.LoadBalancerServiceImpl
 import org.openstack4j.openstack.networking.internal.ext.LoadBalancerV2ServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.MemberServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.NetQuotaServiceImpl;
-import org.openstack4j.openstack.networking.internal.ext.ServiceFunctionChainServiceImpl;
-import org.openstack4j.openstack.networking.internal.ext.PortPairServiceImpl;
-import org.openstack4j.openstack.networking.internal.ext.PortPairGroupServiceImpl;
+import org.openstack4j.openstack.networking.internal.ext.NetworkIPAvailabilityServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.PortChainServiceImpl;
+import org.openstack4j.openstack.networking.internal.ext.PortPairGroupServiceImpl;
+import org.openstack4j.openstack.networking.internal.ext.PortPairServiceImpl;
+import org.openstack4j.openstack.networking.internal.ext.ServiceFunctionChainServiceImpl;
 import org.openstack4j.openstack.networking.internal.ext.VipServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.NetQosRuleTypeServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.QosBandwidthLimitRuleServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.QosDscpMarkingRuleServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.QosMinimumBandwidthRuleServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.QosPolicyServiceImpl;
+import org.openstack4j.openstack.networking.internal.qos.QosServiceImpl;
 import org.openstack4j.openstack.octavia.internal.OctaviaServiceImpl;
 import org.openstack4j.openstack.sahara.internal.ClusterServiceImpl;
 import org.openstack4j.openstack.sahara.internal.ClusterTemplateServiceImpl;
@@ -336,9 +358,17 @@ import org.openstack4j.openstack.trove.internal.DBFlavorServiceImpl;
 import org.openstack4j.openstack.trove.internal.DBInstanceServiceImpl;
 import org.openstack4j.openstack.trove.internal.DBUserServiceImpl;
 import org.openstack4j.openstack.trove.internal.TroveServiceImpl;
+import org.openstack4j.openstack.workflow.internal.ActionDefinitionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.ActionExecutionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.CronTriggerServiceImpl;
+import org.openstack4j.openstack.workflow.internal.TaskExecutionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.WorkbookDefinitionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.WorkflowDefinitionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.WorkflowEnvironmentServiceImpl;
+import org.openstack4j.openstack.workflow.internal.WorkflowExecutionServiceImpl;
+import org.openstack4j.openstack.workflow.internal.WorkflowServiceImpl;
 
-import com.google.common.collect.Maps;
-import org.openstack4j.openstack.workflow.internal.*;
+import java.util.Map;
 
 /**
  * Simple API Provider which keeps internally Maps interface implementations as singletons
@@ -406,6 +436,12 @@ public class DefaultAPIProvider implements APIProvider {
         bind(ComputeFloatingIPService.class, ComputeFloatingIPServiceImpl.class);
         bind(SecurityGroupService.class, SecurityGroupServiceImpl.class);
         bind(SecurityGroupRuleService.class, SecurityGroupRuleServiceImpl.class);
+        bind(NetQosService.class, QosServiceImpl.class);
+        bind(NetQosRuleTypeService.class, NetQosRuleTypeServiceImpl.class);
+        bind(NetQosPolicyService.class, QosPolicyServiceImpl.class);
+        bind(NetQosBandwidthLimitRuleService.class, QosBandwidthLimitRuleServiceImpl.class);
+        bind(NetQosDscpMarkingRuleService.class, QosDscpMarkingRuleServiceImpl.class);
+        bind(NetQosMinimumBandwidthRuleService.class, QosMinimumBandwidthRuleServiceImpl.class);
         bind(TelemetryService.class, TelemetryServiceImpl.class);
         bind(MeterService.class, MeterServiceImpl.class);
         bind(SampleService.class, SampleServiceImpl.class);
@@ -546,6 +582,9 @@ public class DefaultAPIProvider implements APIProvider {
         bind(ActionExecutionService.class, ActionExecutionServiceImpl.class);
         bind(WorkflowEnvironmentService.class, WorkflowEnvironmentServiceImpl.class);
         bind(CronTriggerService.class, CronTriggerServiceImpl.class);
+        bind(org.openstack4j.api.gnocchi.ResourceService.class, org.openstack4j.openstack.gnocchi.internal.ResourceServiceImpl.class);
+        bind(org.openstack4j.api.gnocchi.GnocchiService.class, org.openstack4j.openstack.gnocchi.internal.GnocchiServiceImpl.class);
+        bind(NetworkIPAvailabilityService.class, NetworkIPAvailabilityServiceImpl.class);
     }
 
     /**

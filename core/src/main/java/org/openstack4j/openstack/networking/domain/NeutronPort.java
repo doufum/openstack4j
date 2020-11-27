@@ -1,10 +1,11 @@
 package org.openstack4j.openstack.networking.domain;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import org.openstack4j.model.common.builder.ResourceBuilder;
 import org.openstack4j.model.network.AllowedAddressPair;
@@ -15,12 +16,11 @@ import org.openstack4j.model.network.State;
 import org.openstack4j.model.network.builder.PortBuilder;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A Neutron Port
@@ -86,6 +86,9 @@ public class NeutronPort implements Port {
 
 	@JsonProperty("binding:profile")
 	private Map<String, Object> profile;
+
+	@JsonProperty("qos_policy_id")
+	private String qosPolicyId;
 
 	public static PortBuilder builder() {
 		return new PortConcreteBuilder();
@@ -236,6 +239,14 @@ public class NeutronPort implements Port {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public String getQosPolicyId() {
+		return qosPolicyId;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -276,6 +287,10 @@ public class NeutronPort implements Port {
 		this.profile = profile;
 	}
 
+	public void setQosPolicyId(String qosPolicyId) {
+		this.qosPolicyId = qosPolicyId;
+	}
+
 	/**
      * {@inheritDoc}
      */
@@ -296,7 +311,7 @@ public class NeutronPort implements Port {
 				    .add("networkId", networkId).add("tenantId", tenantId).add("securityGroups", securityGroups)
 				    .add("allowed_address_pairs", allowedAddressPairs).add("port_security_enabled ", portSecurityEnabled)
 				    .add("binding:host_id", hostId).add("binding:vif_type", vifType).add("binding:vif_details", vifDetails)
-				    .add("binding:vnic_type", vNicType).add("binding:profile", profile)
+				    .add("binding:vnic_type", vNicType).add("binding:profile", profile).add("qos_policy_id", qosPolicyId)
 				    .toString();
 	}
 
@@ -308,7 +323,7 @@ public class NeutronPort implements Port {
 		return java.util.Objects.hash(id, name, adminStateUp, deviceId,
 				deviceOwner, fixedIps, macAddress, networkId, tenantId,
 				securityGroups, allowedAddressPairs, portSecurityEnabled, hostId,
-				vifType, vifDetails, vNicType, profile);
+				vifType, vifDetails, vNicType, profile, qosPolicyId);
 	}
 
 	/**
@@ -338,6 +353,7 @@ public class NeutronPort implements Port {
 					java.util.Objects.equals(vifType, that.vifType) &&
 					java.util.Objects.equals(vifDetails, that.vifDetails) &&
 					java.util.Objects.equals(vNicType, that.vNicType) &&
+					java.util.Objects.equals(qosPolicyId, that.qosPolicyId) &&
 					java.util.Objects.equals(profile, that.profile)) {
 				return true;
 			}
@@ -528,6 +544,12 @@ public class NeutronPort implements Port {
 			m.profile = profile;
 			return this;
     	}
+
+		@Override
+		public PortBuilder qosPolicyId(String qosPolicyId) {
+			m.qosPolicyId = qosPolicyId;
+			return this;
+		}
 
 	}
 

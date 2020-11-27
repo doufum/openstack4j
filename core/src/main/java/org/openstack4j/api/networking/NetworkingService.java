@@ -5,6 +5,8 @@ import org.openstack4j.api.networking.ext.FirewallAsService;
 import org.openstack4j.api.networking.ext.LbaasV2Service;
 import org.openstack4j.api.networking.ext.LoadBalancerService;
 import org.openstack4j.api.networking.ext.NetQuotaService;
+import org.openstack4j.api.networking.ext.NetworkIPAvailabilityService;
+import org.openstack4j.api.networking.qos.NetQosService;
 import org.openstack4j.common.RestService;
 
 /**
@@ -52,6 +54,11 @@ public interface NetworkingService extends RestService {
     SecurityGroupRuleService securityrule();
 
     /**
+     * @return the QoS Service API
+     */
+    NetQosService qos();
+
+    /**
      * @return the network quota service
      */
     NetQuotaService quotas();
@@ -83,4 +90,9 @@ public interface NetworkingService extends RestService {
      * @return the Availability Zone Service API
      */
     AvailabilityZoneService availabilityzone();
+
+    /**
+     * @return the Network IP Availability Service API
+     */
+    NetworkIPAvailabilityService networkIPAvailability();
 }

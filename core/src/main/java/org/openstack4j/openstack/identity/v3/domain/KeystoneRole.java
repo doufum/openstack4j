@@ -1,16 +1,17 @@
 package org.openstack4j.openstack.identity.v3.domain;
 
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Maps;
 
 import org.openstack4j.model.identity.v3.Role;
 import org.openstack4j.model.identity.v3.builder.RoleBuilder;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.List;
+import java.util.Map;
 
 /**
  * v3 role implementation
@@ -27,6 +28,7 @@ public class KeystoneRole implements Role {
     @JsonProperty("domain_id")
     private String domainId;
     private Map<String, String> links;
+    private Map<String, String> options = Maps.newHashMap();
 
     @Override
     public RoleBuilder toBuilder() {
@@ -59,6 +61,11 @@ public class KeystoneRole implements Role {
     @Override
     public String getDomainId() {
         return domainId;
+    }
+
+    @Override
+    public Map<String, String> getOptions() {
+        return options;
     }
 
     /**
@@ -117,6 +124,12 @@ public class KeystoneRole implements Role {
         @Override
         public RoleBuilder domainId(String domainId) {
             model.domainId = domainId;
+            return this;
+        }
+
+        @Override
+        public RoleBuilder options(Map<String, String> options) {
+            model.options = options;
             return this;
         }
 

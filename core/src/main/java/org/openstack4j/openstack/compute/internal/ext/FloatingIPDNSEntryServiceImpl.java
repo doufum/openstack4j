@@ -1,9 +1,5 @@
 package org.openstack4j.openstack.compute.internal.ext;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
 import org.openstack4j.api.compute.ext.FloatingIPDNSEntryService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.ext.DNSEntry;
@@ -12,11 +8,16 @@ import org.openstack4j.openstack.compute.domain.ext.ExtDNSEntry;
 import org.openstack4j.openstack.compute.domain.ext.ExtDNSEntry.DNSEntries;
 import org.openstack4j.openstack.compute.internal.BaseComputeServices;
 
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * A Service which handles DNS Entries for the Floating IP DNS Extension
  * 
  * @author Jeremy Unruh
  */
+@Deprecated
 public class FloatingIPDNSEntryServiceImpl extends BaseComputeServices implements FloatingIPDNSEntryService {
 
     @Override

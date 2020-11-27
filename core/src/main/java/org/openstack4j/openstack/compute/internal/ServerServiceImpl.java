@@ -1,12 +1,6 @@
 package org.openstack4j.openstack.compute.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.openstack4j.openstack.compute.domain.actions.CreateSnapshotAction.create;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import com.google.common.base.Strings;
 
 import org.openstack4j.api.Apis;
 import org.openstack4j.api.compute.ServerService;
@@ -35,6 +29,7 @@ import org.openstack4j.openstack.common.Metadata;
 import org.openstack4j.openstack.compute.domain.AdminPass;
 import org.openstack4j.openstack.compute.domain.ConsoleOutput;
 import org.openstack4j.openstack.compute.domain.ConsoleOutputOptions;
+import org.openstack4j.openstack.compute.domain.NovaBlockDeviceMappingCreate;
 import org.openstack4j.openstack.compute.domain.NovaPassword;
 import org.openstack4j.openstack.compute.domain.NovaServer;
 import org.openstack4j.openstack.compute.domain.NovaServer.Servers;
@@ -61,6 +56,14 @@ import org.openstack4j.openstack.compute.functions.ToActionResponseFunction;
 import org.openstack4j.openstack.compute.functions.WrapServerIfApplicableFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.openstack4j.openstack.compute.domain.actions.CreateSnapshotAction.create;
 
 /**
  * Server Operation API implementation
@@ -131,9 +134,21 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
     @Override
     public Server boot(ServerCreate server) {
         checkNotNull(server);
-        return post(NovaServer.class, uri("/servers"))
-                     .entity(WrapServerIfApplicableFunction.INSTANCE.apply(server))
-                     .execute();
+        boolean flg = false;
+        if (server.getBlockDeviceMapping() != null && server.getBlockDeviceMapping().size() != 0) {
+            flg = server.getBlockDeviceMapping().stream().anyMatch(blockDeviceMappingCreate ->
+                ((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).boot_index == 0
+                        & !Strings.isNullOrEmpty(((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).volumeType)
+            );
+        }
+
+        Invocation<NovaServer> serverInvocation = post(NovaServer.class, uri("/servers"))
+                .entity(WrapServerIfApplicableFunction.INSTANCE.apply(server));
+        if (flg) {
+            serverInvocation
+                    .header("OpenStack-API-Version", "compute 2.67");
+        }
+        return serverInvocation.execute();
     }
 
     /**
@@ -475,17 +490,17 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
     public ServerPassword getPassword(String serverId) {
         checkNotNull(serverId);
         return get(NovaPassword.class, uri("/servers/%s/os-server-password", serverId)).execute();
-    }   
-    
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public ServerPassword evacuate(String serverId, EvacuateOptions options) {
         checkNotNull(serverId);
-      
+
         return post(AdminPass.class, uri("/servers/%s/action", serverId))
                     .entity(EvacuateAction.create(options))
-                    .execute();            
+                    .execute();
     }
 }

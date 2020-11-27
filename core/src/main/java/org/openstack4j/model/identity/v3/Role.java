@@ -1,10 +1,10 @@
 package org.openstack4j.model.identity.v3;
 
-import java.util.Map;
-
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.identity.v3.builder.RoleBuilder;
+
+import java.util.Map;
 
 /**
  * identity v3 role model class
@@ -24,6 +24,11 @@ public interface Role extends ModelEntity, Buildable<RoleBuilder> {
      * @return the name of the role
      */
     String getName();
+
+    /**
+     * Get Role options.
+     */
+    Map<String, String> getOptions();
 
     /**
      * @return the links of the role

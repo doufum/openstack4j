@@ -1,15 +1,15 @@
 package org.openstack4j.openstack.networking.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
 import org.openstack4j.api.networking.SubnetService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.network.Subnet;
 import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 import org.openstack4j.openstack.networking.domain.NeutronSubnet.Subnets;
 import org.openstack4j.openstack.networking.domain.NeutronSubnetUpdate;
+
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * OpenStack (Neutron) Subnet based Operations implementation
@@ -50,11 +50,13 @@ public class SubnetServiceImpl extends BaseNetworkingServices implements SubnetS
         return post(NeutronSubnet.class, uri("/subnets")).entity(subnet).execute();
     }
 
+    @Override
     public Subnet update(Subnet subnet) {
         checkNotNull(subnet);
         return update(subnet.getId(), subnet);
     }
 
+    @Override
     public Subnet update(String subnetId, Subnet subnet) {
         checkNotNull(subnetId);
         checkNotNull(subnet);

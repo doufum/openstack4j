@@ -1,6 +1,8 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
 
 import org.openstack4j.model.common.Link;
 import org.openstack4j.model.compute.IPProtocol;
@@ -9,9 +11,7 @@ import org.openstack4j.model.compute.builder.SecurityGroupRuleBuilder;
 import org.openstack4j.openstack.common.GenericLink;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
+import java.util.List;
 
 /**
  * A Security Group which is defined the the (os-security-groups) extension
@@ -19,6 +19,7 @@ import com.google.common.base.MoreObjects;
  * @author Jeremy Unruh
  */
 @JsonRootName("security_group")
+@Deprecated
 public class NovaSecGroupExtension implements SecGroupExtension {
 
 	private static final long serialVersionUID = 1L;
@@ -106,6 +107,7 @@ public class NovaSecGroupExtension implements SecGroupExtension {
 	}
 
 
+	@Deprecated
 	public static class SecurityGroups extends ListResult<NovaSecGroupExtension> {
 
 		private static final long serialVersionUID = 1L;
@@ -123,6 +125,7 @@ public class NovaSecGroupExtension implements SecGroupExtension {
 	 * Security Group Rule
 	 */
 	@JsonRootName("security_group_rule")
+	@Deprecated
 	public static class SecurityGroupRule implements SecGroupExtension.Rule {
 
 		private static final long serialVersionUID = 1L;
@@ -238,6 +241,7 @@ public class NovaSecGroupExtension implements SecGroupExtension {
 			return new RuleConcreteBuilder();
 		}
 
+		@Deprecated
 		public static class RuleConcreteBuilder implements SecurityGroupRuleBuilder
 		{
 
@@ -298,6 +302,7 @@ public class NovaSecGroupExtension implements SecGroupExtension {
 		/**
 		 * Security Group Rule -> Group
 		 */
+		@Deprecated
 		public static class RuleGroup implements Group {
 
 			private String name;
@@ -334,6 +339,7 @@ public class NovaSecGroupExtension implements SecGroupExtension {
 		/**
 		 * Security Group Rule -> IP Range
 		 */
+		@Deprecated
 		public static class RuleIpRange implements IpRange {
 
 			private String cidr;

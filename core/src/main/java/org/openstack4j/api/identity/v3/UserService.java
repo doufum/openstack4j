@@ -1,14 +1,15 @@
 package org.openstack4j.api.identity.v3;
 
-import java.util.List;
-
 import org.openstack4j.common.RestService;
+import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.identity.v3.Domain;
 import org.openstack4j.model.identity.v3.Group;
 import org.openstack4j.model.identity.v3.Project;
 import org.openstack4j.model.identity.v3.Role;
 import org.openstack4j.model.identity.v3.User;
-import org.openstack4j.model.common.ActionResponse;
+import org.openstack4j.model.identity.v3.options.UserListOptions;
+
+import java.util.List;
 
 
 /**
@@ -124,6 +125,13 @@ public interface UserService extends RestService {
 	 * @return list of users
 	 */
 	List<? extends User> list();
+
+	/**
+	 * lists users.
+	 *
+	 * @return list of users
+	 */
+	List<? extends User> list(UserListOptions userListOptions);
 	
 	/**
      * change password for user.
