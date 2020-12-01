@@ -388,12 +388,8 @@ public class GlanceImage implements Image {
         if (key != null && !RESERVED_KEYS.contains(key)) {
             additionalProperties.put(key, value);
         }
-    }
-
-    @JsonAnySetter
-    public void add(String property, Object value) {
-        if (property != null && property.startsWith("support:")) {
-            supportFlavorType.put(property.split(":")[1], value.toString());
+        if (key != null && key.startsWith("support:")) {
+            supportFlavorType.put(key.split(":")[1], value);
         }
     }
 
