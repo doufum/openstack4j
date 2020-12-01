@@ -1,16 +1,16 @@
 package org.openstack4j.model.image;
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.common.BasicResource;
 import org.openstack4j.model.image.builder.ImageBuilder;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 /**
  * A Glance v1.1 Image
@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public interface Image extends BasicResource, Buildable<ImageBuilder> {
 
-    public enum Status {
+    enum Status {
         UNRECOGNIZED, ACTIVE, SAVING, QUEUED, KILLED, PENDING_DELETE, DELETED;
 
         @JsonCreator
@@ -143,5 +143,10 @@ public interface Image extends BasicResource, Buildable<ImageBuilder> {
      * @return the image url as String
      */
     String getCopyFrom();
+    /**
+     *
+     * @return bare metal supported flavor type
+     */
+    Map<String, String> getSupportFlavorType();
 
 }

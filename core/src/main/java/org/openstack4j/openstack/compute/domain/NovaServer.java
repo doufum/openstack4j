@@ -1,10 +1,11 @@
 package org.openstack4j.openstack.compute.domain;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Lists;
 
 import org.openstack4j.api.Apis;
 import org.openstack4j.model.common.Link;
@@ -18,12 +19,11 @@ import org.openstack4j.openstack.common.GenericLink;
 import org.openstack4j.openstack.common.IdResourceEntity;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @JsonRootName("server")
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -50,6 +50,8 @@ public class NovaServer implements Server {
 	@JsonProperty("key_name")
 	public String keyName;
 	public String hostId;
+	@JsonProperty("hypervisor_type")
+	public String hypervisorType;
 	public Date updated;
 	public Date created;
 	public Map<String, String> metadata;
@@ -123,8 +125,7 @@ public class NovaServer implements Server {
 			if (imageId == null || imageId.isEmpty()) {
 				return null;
 			}
-			NovaImage novaImage = (NovaImage) Apis.getComputeServices().images().get(imageId);
-			return novaImage;
+			return Apis.getComputeServices().images().get(imageId);
 		}
 		return null;
 	}
@@ -137,8 +138,9 @@ public class NovaServer implements Server {
 
 	@Override
 	public Flavor getFlavor() {
-		if (flavor != null && flavor.getName() == null)
+		if (flavor != null && flavor.getName() == null) {
 			flavor = (NovaFlavor) Apis.getComputeServices().flavors().get(flavor.getId());
+		}
 		return flavor;
 	}
 
@@ -282,6 +284,11 @@ public class NovaServer implements Server {
 	}
 
 	@Override
+	public String getHypervisorType() {
+		return hypervisorType;
+	}
+
+	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this).omitNullValues()
 				   .add("id",id).add("name", name).add("image", image).add("flavor", flavor)
@@ -290,7 +297,7 @@ public class NovaServer implements Server {
 				   .add("launched at", launchedAt).add("tenantId", tenantId).add("hostId", hostId)
 				   .add("addresses", addresses).add("hypervisor host", hypervisorHostname)
 				   .add("uuid", uuid).add("powerstate", powerState).add("fault", fault).add("instanceName", instanceName)
-				   .add("vmState", vmState).add("metadata", metadata)
+				   .add("vmState", vmState).add("metadata", metadata).add("hypervisorType", hypervisorType)
 				   .toString();
 	}
 

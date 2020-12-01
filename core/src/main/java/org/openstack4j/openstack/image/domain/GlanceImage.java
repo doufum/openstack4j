@@ -1,10 +1,11 @@
 package org.openstack4j.openstack.image.domain;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Maps;
 
 import org.openstack4j.model.common.builder.BasicResourceBuilder;
 import org.openstack4j.model.image.ContainerFormat;
@@ -14,11 +15,12 @@ import org.openstack4j.model.image.StoreType;
 import org.openstack4j.model.image.builder.ImageBuilder;
 import org.openstack4j.openstack.common.ListResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Maps;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 /**
  * A Glance v1.1 Image model implementation
@@ -41,6 +43,12 @@ public class GlanceImage implements Image {
 	@JsonProperty("container_format")
 	private ContainerFormat containerFormat;
 	private Long size;
+
+	/**
+	 * "support:d2.large.physical": "true"
+	 */
+	private final Map<String, String> supportFlavorType = new HashMap<>();
+
 	private String checksum;
 	private String owner;
 
@@ -261,17 +269,31 @@ public class GlanceImage implements Image {
         return copyFrom;
     }
 
+	@Override
+	public Map<String, String> getSupportFlavorType() {
+		return supportFlavorType;
+	}
+
+	@JsonAnySetter
+	public void add(String property, Object value) {
+		if (property.startsWith("support:")) {
+			supportFlavorType.put(property.split(":")[1], value.toString());
+		}
+	}
+
     /* Business Domain Method Chains for Conversion */
 
 	public GlanceImage isProtected(Boolean isProtected) {
-		if (isProtected != null)
+		if (isProtected != null) {
 			this.isProtected = isProtected;
+		}
 		return this;
 	}
 
 	public GlanceImage isDeleted(Boolean isDeleted) {
-		if (isDeleted != null)
+		if (isDeleted != null) {
 			this.isDeleted = isDeleted;
+		}
 		return this;
 	}
 
@@ -401,8 +423,9 @@ public class GlanceImage implements Image {
 
 		@Override
 		public ImageBuilder isPublic(Boolean isPublic) {
-			if (isPublic != null)
+			if (isPublic != null) {
 				m.isPublic = isPublic;
+			}
 			return this;
 		}
 
@@ -430,10 +453,10 @@ public class GlanceImage implements Image {
 
 		@Override
 		public ImageBuilder property(String key, String value) {
-			if (key != null && value != null)
-			{
-				if (m.properties == null)
+			if (key != null && value != null) {
+				if (m.properties == null) {
 					m.properties = Maps.newHashMap();
+				}
 				m.properties.put(key, value);
 			}
 			return this;
