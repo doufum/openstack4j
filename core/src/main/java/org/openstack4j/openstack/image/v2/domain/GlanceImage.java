@@ -1,10 +1,12 @@
 package org.openstack4j.openstack.image.v2.domain;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import org.openstack4j.model.common.builder.BasicResourceBuilder;
 import org.openstack4j.model.image.v2.ContainerFormat;
@@ -14,13 +16,12 @@ import org.openstack4j.model.image.v2.builder.ImageBuilder;
 import org.openstack4j.openstack.common.ListResult;
 import org.openstack4j.openstack.common.Metadata;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A glance v2.0-2.3 image model implementation
@@ -30,34 +31,33 @@ import com.google.common.collect.Sets;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GlanceImage implements Image {
 
-    private static final Set<String> RESERVED_KEYS = Sets.newHashSet(Arrays.asList(new String[] {
-            "id",
-            "name",
-            "tags",
-            "status",
-            "container_format",
-            "disk_format",
-            "created_at",
-            "updated_at",
-            "min_disk",
-            "min_ram",
-            "protected",
-            "checksum",
-            "owner",
-            "visibility",
-            "size",
-            "locations",
-            "direct_url",
-            "self",
-            "file",
-            "schema",
-            "architecture",
-            "instance_uuid",
-            "kernel_id",
-            "os_version",
-            "os_distro",
-            "ramdisk_id",
-            "virtual_size" }));
+    private static final Set<String> RESERVED_KEYS = Sets.newHashSet(Arrays.asList("id",
+                                                                                   "name",
+                                                                                   "tags",
+                                                                                   "status",
+                                                                                   "container_format",
+                                                                                   "disk_format",
+                                                                                   "created_at",
+                                                                                   "updated_at",
+                                                                                   "min_disk",
+                                                                                   "min_ram",
+                                                                                   "protected",
+                                                                                   "checksum",
+                                                                                   "owner",
+                                                                                   "visibility",
+                                                                                   "size",
+                                                                                   "locations",
+                                                                                   "direct_url",
+                                                                                   "self",
+                                                                                   "file",
+                                                                                   "schema",
+                                                                                   "architecture",
+                                                                                   "instance_uuid",
+                                                                                   "kernel_id",
+                                                                                   "os_version",
+                                                                                   "os_distro",
+                                                                                   "ramdisk_id",
+                                                                                   "virtual_size"));
 
     private static final long serialVersionUID = 1L;
 
@@ -98,6 +98,11 @@ public class GlanceImage implements Image {
 
     private Long size;
 
+    /**
+     * "support:d2.large.physical": "true"
+     */
+    private final Map<String, String> supportFlavorType = new HashMap<>();
+
     private List<Location> locations;
 
     @JsonProperty("direct_url")
@@ -129,7 +134,7 @@ public class GlanceImage implements Image {
     @JsonProperty("virtual_size")
     private Long virtualSize;
 
-    private Map<String, String> additionalProperties = Maps.newHashMap();
+    private final Map<String, String> additionalProperties = Maps.newHashMap();
 
     /**
      * {@inheritDoc}
@@ -368,6 +373,11 @@ public class GlanceImage implements Image {
         return additionalProperties.get(key);
     }
 
+    @Override
+    public Map<String, String> getSupportFlavorType() {
+        return supportFlavorType;
+    }
+
     @JsonAnyGetter
     public Map<String, String> getAdditionalProperties() {
         return additionalProperties;
@@ -377,6 +387,13 @@ public class GlanceImage implements Image {
     public void setAdditionalProperty(String key, String value) {
         if (key != null && !RESERVED_KEYS.contains(key)) {
             additionalProperties.put(key, value);
+        }
+    }
+
+    @JsonAnySetter
+    public void add(String property, Object value) {
+        if (property != null && property.startsWith("support:")) {
+            supportFlavorType.put(property.split(":")[1], value.toString());
         }
     }
 

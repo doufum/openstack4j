@@ -1,14 +1,14 @@
 package org.openstack4j.model.compute;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import org.openstack4j.model.ModelEntity;
 import org.openstack4j.model.common.Link;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A server is a virtual machine instance on a compute based system.  
@@ -21,7 +21,7 @@ public interface Server extends ModelEntity {
 	 * Servers contain a status attribute that can be used as an indication of the current server
 	 * state. Servers with an ACTIVE status are available for use.
 	 */
-	public enum Status {
+	enum Status {
 	    /** The server is active */
 		ACTIVE, 
 		/** The server has not finished the original build process */
@@ -275,6 +275,11 @@ public interface Server extends ModelEntity {
 	 * @return the administrative password to the VM
 	 */
 	String getAdminPass();
+
+	/**
+	 * @return the hypervisor type
+	 */
+	String getHypervisorType();
 
     /**
      * @return security groups attached to the VM

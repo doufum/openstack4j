@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.pacesys</groupId>
 		<artifactId>openstack4j-core-integration-test</artifactId>
-		<version>3.2.2.20201118-RC</version>
+		<version>3.2.2.20201201-RC</version>
 	</parent>
 	<artifactId>it-jersey2</artifactId>
 	<name>OpenStack4j IntegrationTest Jersey2 Connector</name>

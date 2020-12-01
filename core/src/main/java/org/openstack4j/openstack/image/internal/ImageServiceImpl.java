@@ -19,10 +19,11 @@ import org.openstack4j.openstack.image.domain.GlanceImageMember.Members;
 import org.openstack4j.openstack.image.domain.functions.ImageForUpdateToHeaders;
 import org.openstack4j.openstack.image.domain.functions.ImageFromHeadersFunction;
 
-import javax.annotation.Nullable;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.openstack4j.core.transport.ClientConstants.CONTENT_TYPE_OCTECT_STREAM;
@@ -46,7 +47,7 @@ public class ImageServiceImpl extends BaseImageServices implements ImageService 
     public List<? extends CachedImage> listChachedImages() {
         try {
             return get(CachedImages.class, uri("/cached_images"))
-                    .execute(ExecutionOptions.<CachedImages>create(PropagateOnStatus.on(404))).getList();
+                    .execute(ExecutionOptions.create(PropagateOnStatus.on(404))).getList();
         }
         catch (ResponseException e) {
             return null;
@@ -71,6 +72,7 @@ public class ImageServiceImpl extends BaseImageServices implements ImageService 
         return imageInvocation.execute().getList();
     }
     
+    @Override
     public List<? extends Image> listAll(Map<String, String> filteringParams) {
         Invocation<Images> imageInvocation = buildInvocation(filteringParams);
         
@@ -91,6 +93,7 @@ public class ImageServiceImpl extends BaseImageServices implements ImageService 
         return totalList;
     }
 
+    @Override
     public List<? extends Image> listAll() {
         return listAll(null);
     }
