@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>org.pacesys.openstack4j.connectors</groupId>
 		<artifactId>openstack4j-connectors</artifactId>
-		<version>3.2.2.20201201-RC</version>
+		<version>3.2.2.20210129-RC</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>openstack4j-resteasy</artifactId>
@@ -42,7 +42,7 @@
 			<version>4.5.3</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -61,10 +61,10 @@
 							!org.openstack4j.connectors.resteasy.executors,
 							*
 						</Import-Package>
-						<!-- 
+						<!--
 						Required for SPI in OSGi:
 						http://aries.apache.org/modules/spi-fly.html#specconf
-						
+
 						This bundle defines an implementation for following services in META-INF-services:
 						org.openstack4j.core.transport.HttpExecutorService
 						 -->
