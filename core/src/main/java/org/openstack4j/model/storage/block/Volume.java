@@ -49,8 +49,7 @@ public interface Volume extends ModelEntity, Buildable<VolumeBuilder> {
 	}
 
 	public enum MigrationStatus {
-	    NONE, MIGRATING
-	    ;
+	    NONE, MIGRATING, SUCCESS;
 
 	    @JsonValue
         public String value() {
