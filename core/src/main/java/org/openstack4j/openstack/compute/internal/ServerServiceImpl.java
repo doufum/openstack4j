@@ -23,6 +23,7 @@ import org.openstack4j.model.compute.VolumeAttachment;
 import org.openstack4j.model.compute.actions.BackupOptions;
 import org.openstack4j.model.compute.actions.EvacuateOptions;
 import org.openstack4j.model.compute.actions.LiveMigrateOptions;
+import org.openstack4j.model.compute.actions.MigrateOptions;
 import org.openstack4j.model.compute.actions.RebuildOptions;
 import org.openstack4j.model.compute.builder.ServerCreateBuilder;
 import org.openstack4j.openstack.common.Metadata;
@@ -48,6 +49,7 @@ import org.openstack4j.openstack.compute.domain.actions.BasicActions.RevertResiz
 import org.openstack4j.openstack.compute.domain.actions.CreateSnapshotAction;
 import org.openstack4j.openstack.compute.domain.actions.EvacuateAction;
 import org.openstack4j.openstack.compute.domain.actions.LiveMigrationAction;
+import org.openstack4j.openstack.compute.domain.actions.MigrationAction;
 import org.openstack4j.openstack.compute.domain.actions.RebuildAction;
 import org.openstack4j.openstack.compute.domain.actions.ResetStateAction;
 import org.openstack4j.openstack.compute.domain.actions.SecurityGroupActions;
@@ -362,6 +364,19 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
     public ActionResponse migrateServer(String serverId) {
         checkNotNull(serverId);
         return invokeAction(serverId, BasicActions.instanceFor(Migrate.class));
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ActionResponse migrateServer(String serverId, MigrateOptions options) {
+        checkNotNull(serverId);
+        if (options == null)
+            options = MigrateOptions.create();
+
+        return invokeAction(serverId, MigrationAction.create(options));
     }
 
     /**
