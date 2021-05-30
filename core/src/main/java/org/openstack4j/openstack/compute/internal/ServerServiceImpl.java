@@ -139,8 +139,9 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
         boolean flg = false;
         if (server.getBlockDeviceMapping() != null && server.getBlockDeviceMapping().size() != 0) {
             flg = server.getBlockDeviceMapping().stream().anyMatch(blockDeviceMappingCreate ->
-                ((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).boot_index == 0
-                        & !Strings.isNullOrEmpty(((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).volumeType)
+                   ((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).boot_index != null
+                           && ((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).boot_index == 0
+                           && !Strings.isNullOrEmpty(((NovaBlockDeviceMappingCreate) blockDeviceMappingCreate).volumeType)
             );
         }
 
@@ -344,7 +345,7 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
     public VolumeAttachment attachVolume(String serverId, String volumeId, String device) {
         return post(NovaVolumeAttachment.class, uri("/servers/%s/os-volume_attachments", serverId))
                 .entity(NovaVolumeAttachment.create(volumeId, device))
-                .execute(ExecutionOptions.<NovaVolumeAttachment>create(PropagateOnStatus.on(404)));
+                .execute(ExecutionOptions.create(PropagateOnStatus.on(404)));
     }
 
     /**
