@@ -2,7 +2,7 @@
     <parent>
         <groupId>org.pacesys</groupId>
         <artifactId>openstack4j-parent</artifactId>
-        <version>3.2.2.20210530-RC</version>
+        <version>3.2.2.20210719-RC</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pacesys.openstack4j.connectors</groupId>

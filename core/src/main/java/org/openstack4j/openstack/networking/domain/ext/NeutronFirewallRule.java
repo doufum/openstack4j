@@ -1,18 +1,18 @@
 package org.openstack4j.openstack.networking.domain.ext;
 
-import java.util.List;
-
-import org.openstack4j.model.network.IPVersionType;
-import org.openstack4j.model.network.ext.FirewallRule;
-import org.openstack4j.model.network.ext.builder.FirewallRuleBuilder;
-import org.openstack4j.openstack.common.ListResult;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.MoreObjects;
+
+import org.openstack4j.model.network.IPVersionType;
+import org.openstack4j.model.network.ext.FirewallRule;
+import org.openstack4j.model.network.ext.builder.FirewallRuleBuilder;
+import org.openstack4j.openstack.common.ListResult;
+
+import java.util.List;
 
 /**
  * A Neutron Firewall (FwaaS) : Firewall Rule Entity.
@@ -107,6 +107,12 @@ public class NeutronFirewallRule implements FirewallRule {
 	@JsonProperty("destination_ip_address")
 	private String destinationIpAddress;
 
+	@JsonProperty("source_ip_addresses")
+	private List<String> sourceIpAddresses;
+
+	@JsonProperty("destination_ip_addresses")
+	private List<String> destinationIpAddresses;
+
 	private Integer position;
 
 	private IPProtocol protocol;
@@ -119,6 +125,12 @@ public class NeutronFirewallRule implements FirewallRule {
 
 	@JsonProperty("destination_port")
 	private String destinationPort;
+
+	@JsonProperty("source_ports")
+	private List<String> sourcePorts;
+
+	@JsonProperty("destination_ports")
+	private List<String> destinationPorts;
 
 	/**
 	 * Wrap this FirewallRule to a builder
@@ -187,6 +199,16 @@ public class NeutronFirewallRule implements FirewallRule {
 	}
 
 	@Override
+	public List<String> getSourceIpAddresses() {
+		return sourceIpAddresses;
+	}
+
+	@Override
+	public List<String> getDestinationIpAddresses() {
+		return destinationIpAddresses;
+	}
+
+	@Override
 	public String getSourcePort() {
 		return sourcePort;
 	}
@@ -194,6 +216,16 @@ public class NeutronFirewallRule implements FirewallRule {
 	@Override
 	public String getDestinationPort() {
 		return destinationPort;
+	}
+
+	@Override
+	public List<String> getSourcePorts() {
+		return sourcePorts;
+	}
+
+	@Override
+	public List<String> getDestinationPorts() {
+		return destinationPorts;
 	}
 
 	@Override
@@ -219,8 +251,11 @@ public class NeutronFirewallRule implements FirewallRule {
 				.add("policyId", policyId).add("enabled", enabled)
 				.add("shared", shared).add("tenantId", tenantId)
 				.add("sourceIpAddress", sourceIpAddress)
+				.add("sourceIpAddresses", sourceIpAddresses)
 				.add("destinationIpAddress", destinationIpAddress)
+				.add("destinationIpAddresses", destinationIpAddresses)
 				.add("sourcePort", sourcePort).add("destinationPort", destinationPort)
+				.add("sourcePorts", sourcePorts).add("destinationPorts", destinationPorts)
 				.add("description", description).add("protocol", protocol)
 				.toString();
 	}
@@ -323,6 +358,30 @@ public class NeutronFirewallRule implements FirewallRule {
 		@Override
 		public FirewallRuleBuilder destinationPort(String destinationPort) {
 			f.destinationPort = destinationPort;
+			return this;
+		}
+
+		@Override
+		public FirewallRuleBuilder sourceIpAddresses(List<String> sourceIpAddresses) {
+			f.sourceIpAddresses = sourceIpAddresses;
+			return this;
+		}
+
+		@Override
+		public FirewallRuleBuilder destinationIpAddress(List<String> destinationIpAddresses) {
+			f.destinationIpAddresses = destinationIpAddresses;
+			return this;
+		}
+
+		@Override
+		public FirewallRuleBuilder sourcePorts(List<String> sourcePorts) {
+			f.sourcePorts = sourcePorts;
+			return this;
+		}
+
+		@Override
+		public FirewallRuleBuilder destinationPorts(List<String> destinationPorts) {
+			f.destinationPorts = destinationPorts;
 			return this;
 		}
 
